@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import AsyncSelect from 'react-select/async';
-import axios from 'axios';
-import { getEntity } from '../sales-receipt/sales-receipt.reducer';
-import { useAppDispatch } from 'app/config/store';
+import { getEntity, searchEntities } from '../sales-receipt/sales-receipt.reducer';
+import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { ISalesReceipt } from 'app/shared/model/sales-receipt.model';
-
-const apiSearchUrl = 'api/_search/sales-receipts';
 
 interface AutocompleteSearchSalesReceiptProps {
   onSelectEntity: (salesReceipt: ISalesReceipt) => void;
 }
 
 const AutocompleteSearchSalesReceipt: React.FC<AutocompleteSearchSalesReceiptProps> = ({ onSelectEntity }) => {
+  const salesReceipts = useAppSelector(state => state.salesReceipt.entities);
+
   const [selectedSalesReceipt, setSalesReceipt] = useState<ISalesReceipt | null>(null);
 
   const dispatch = useAppDispatch();
 
   const loadOptions = async (inputValue: string) => {
-    const requestUrl = `${apiSearchUrl}?query=${inputValue}`;
     try {
-      const response = await axios.get(requestUrl);
-      return response.data.map((result: ISalesReceipt) => ({
+      // dispatch query to store
+      dispatch(searchEntities({ query: inputValue }));
+
+      // fetch updated data list from store. I know, it's quite counter-intuitive
+      return salesReceipts.map((result: ISalesReceipt) => ({
         value: result,
-        label: result.id,
+        label: `Receipt # : ${result.id} | date: ${result.transactionDate} | dealer: ${result.dealer.name} | desc: ${result.description}`,
       }));
     } catch (error) {
       console.error('Error fetching search results:', error);
@@ -41,7 +42,7 @@ const AutocompleteSearchSalesReceipt: React.FC<AutocompleteSearchSalesReceiptPro
     }),
   };
 
-  const handleOptionSelect = (option: { value: ISalesReceipt; label: number }) => {
+  const handleOptionSelect = (option: { value: ISalesReceipt; label: string }) => {
     setSalesReceipt(option.value);
 
     onSelectEntity(selectedSalesReceipt);
@@ -57,7 +58,14 @@ const AutocompleteSearchSalesReceipt: React.FC<AutocompleteSearchSalesReceiptPro
     <div>
       <div>Sales Receipt</div>
       <AsyncSelect
-        value={selectedSalesReceipt ? { value: selectedSalesReceipt, label: selectedSalesReceipt.id } : null}
+        value={
+          selectedSalesReceipt
+            ? {
+                value: selectedSalesReceipt,
+                label: `Receipt #: ${selectedSalesReceipt.id} | dealer: ${selectedSalesReceipt.dealer.name} | date: ${selectedSalesReceipt.transactionDate} | ${selectedSalesReceipt.description}`,
+              }
+            : null
+        }
         onChange={handleOptionSelect}
         loadOptions={loadOptions}
         placeholder="Sales Receipt"

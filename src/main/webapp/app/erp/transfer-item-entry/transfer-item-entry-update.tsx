@@ -14,6 +14,7 @@ import { ISalesReceipt } from 'app/shared/model/sales-receipt.model';
 import { getEntities as getSalesReceipts } from 'app/entities/sales-receipt/sales-receipt.reducer';
 import { ITransferItemEntry } from 'app/shared/model/transfer-item-entry.model';
 import { getEntity, updateEntity, createEntity, reset } from './transfer-item-entry.reducer';
+import AutocompleteSearchSalesReceipt from 'app/erp/auto-complete/sales-receipt.autocomplete';
 
 export const TransferItemEntryUpdate = () => {
   const dispatch = useAppDispatch();
@@ -25,13 +26,22 @@ export const TransferItemEntryUpdate = () => {
 
   const transactionItems = useAppSelector(state => state.transactionItem.entities);
   const salesReceipts = useAppSelector(state => state.salesReceipt.entities);
+  const salesReceiptSelected = useAppSelector(state => state.salesReceipt.entity);
   const transferItemEntryEntity = useAppSelector(state => state.transferItemEntry.entity);
   const loading = useAppSelector(state => state.transferItemEntry.loading);
   const updating = useAppSelector(state => state.transferItemEntry.updating);
   const updateSuccess = useAppSelector(state => state.transferItemEntry.updateSuccess);
 
+  const [selectedSalesReceipt, setSelectedSalesReceipt] = useState<ISalesReceipt>(null);
+
   const handleClose = () => {
     navigate('/transfer-item-entry');
+  };
+
+  const handleAccountSelectedEvent = pickedAccount => {
+    if (pickedAccount) {
+      setSelectedSalesReceipt(pickedAccount);
+    }
   };
 
   useEffect(() => {
@@ -54,7 +64,7 @@ export const TransferItemEntryUpdate = () => {
       ...transferItemEntryEntity,
       ...values,
       transactionItem: transactionItems.find(it => it.id.toString() === values.transactionItem.toString()),
-      salesReceipt: salesReceipts.find(it => it.id.toString() === values.salesReceipt.toString()),
+      salesReceipt: salesReceiptSelected,
     };
 
     if (isNew) {
@@ -91,7 +101,7 @@ export const TransferItemEntryUpdate = () => {
               {!isNew ? (
                 <ValidatedField name="id" required readOnly id="transfer-item-entry-id" label="ID" validate={{ required: true }} />
               ) : null}
-              <ValidatedField
+              {/*<ValidatedField
                 id="transfer-item-entry-salesReceipt"
                 name="salesReceipt"
                 data-cy="salesReceipt"
@@ -107,7 +117,8 @@ export const TransferItemEntryUpdate = () => {
                       </option>
                     ))
                   : null}
-              </ValidatedField>
+              </ValidatedField>*/}
+              <AutocompleteSearchSalesReceipt onSelectEntity={handleAccountSelectedEvent} />
               <FormText>This field is required.</FormText>
               <ValidatedField
                 id="transfer-item-entry-transactionItem"
