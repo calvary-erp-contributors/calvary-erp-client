@@ -15,6 +15,12 @@ const SalesReceiptMenuItems = () => {
       <MenuItem icon="asterisk" to="/transfer-item-entry">
         Transfer Item Entry
       </MenuItem>
+      <MenuItem icon="asterisk" to="/sales-receipt-proposal">
+        Sales Receipt Proposal
+      </MenuItem>
+      <MenuItem icon="asterisk" to="/sales-receipt-compilation">
+        Sales Receipt Compilation
+      </MenuItem>
     </>
   );
 };

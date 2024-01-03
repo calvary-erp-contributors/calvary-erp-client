@@ -8,6 +8,7 @@ import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { getEntity } from './transaction-item-entry.reducer';
+import NumberFormatComponent from 'app/erp/utilities/number-format.component';
 
 export const TransactionItemEntryDetail = () => {
   const dispatch = useAppDispatch();
@@ -35,7 +36,9 @@ export const TransactionItemEntryDetail = () => {
           <dt>
             <span id="itemAmount">Item Amount</span>
           </dt>
-          <dd>{transactionItemEntryEntity.itemAmount}</dd>
+          <dd>
+            <NumberFormatComponent formattedNumber={transactionItemEntryEntity.itemAmount} />
+          </dd>
           <dt>Transaction Item</dt>
           <dd>{transactionItemEntryEntity.transactionItem ? transactionItemEntryEntity.transactionItem.itemName : ''}</dd>
           <dt>Sales Receipt</dt>

@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { ITransactionItemEntry } from 'app/shared/model/transaction-item-entry.model';
 import { searchEntities, getEntities, reset } from './transaction-item-entry.reducer';
+import NumberFormatComponent from 'app/erp/utilities/number-format.component';
 
 export const TransactionItemEntry = () => {
   const dispatch = useAppDispatch();
@@ -212,7 +213,10 @@ export const TransactionItemEntry = () => {
                       </Button>
                     </td>
                     <td>{transactionItemEntry.description}</td>
-                    <td>{transactionItemEntry.itemAmount}</td>
+                    {/*<td>{transactionItemEntry.itemAmount}</td>*/}
+                    <td>
+                      <NumberFormatComponent formattedNumber={transactionItemEntry.itemAmount} />
+                    </td>
                     <td>
                       {transactionItemEntry.transactionItem ? (
                         <Link to={`/transaction-item/${transactionItemEntry.transactionItem.id}`}>

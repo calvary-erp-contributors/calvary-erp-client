@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Input, InputGroup, FormGroup, Form, Row, Col, Table } from 'reactstrap';
-import { translate, getSortState } from 'react-jhipster';
+import { translate, TextFormat, getSortState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
@@ -10,11 +10,10 @@ import { ASC, DESC, ITEMS_PER_PAGE, SORT } from 'app/shared/util/pagination.cons
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { ITransferItemEntry } from 'app/shared/model/transfer-item-entry.model';
-import { searchEntities, getEntities, reset } from './transfer-item-entry.reducer';
-import NumberFormatComponent from 'app/erp/utilities/number-format.component';
+import { IApplicationUser } from 'app/shared/model/application-user.model';
+import { searchEntities, getEntities, reset } from './application-user.reducer';
 
-export const TransferItemEntry = () => {
+export const ApplicationUser = () => {
   const dispatch = useAppDispatch();
 
   const location = useLocation();
@@ -26,12 +25,12 @@ export const TransferItemEntry = () => {
   );
   const [sorting, setSorting] = useState(false);
 
-  const transferItemEntryList = useAppSelector(state => state.transferItemEntry.entities);
-  const loading = useAppSelector(state => state.transferItemEntry.loading);
-  const totalItems = useAppSelector(state => state.transferItemEntry.totalItems);
-  const links = useAppSelector(state => state.transferItemEntry.links);
-  const entity = useAppSelector(state => state.transferItemEntry.entity);
-  const updateSuccess = useAppSelector(state => state.transferItemEntry.updateSuccess);
+  const applicationUserList = useAppSelector(state => state.applicationUser.entities);
+  const loading = useAppSelector(state => state.applicationUser.loading);
+  const totalItems = useAppSelector(state => state.applicationUser.totalItems);
+  const links = useAppSelector(state => state.applicationUser.links);
+  const entity = useAppSelector(state => state.applicationUser.entity);
+  const updateSuccess = useAppSelector(state => state.applicationUser.updateSuccess);
 
   const getAllEntities = () => {
     if (search) {
@@ -141,20 +140,15 @@ export const TransferItemEntry = () => {
 
   return (
     <div>
-      <h2 id="transfer-item-entry-heading" data-cy="TransferItemEntryHeading">
-        Transfer Item Entries
+      <h2 id="application-user-heading" data-cy="ApplicationUserHeading">
+        Application Users
         <div className="d-flex justify-content-end">
           <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Refresh list
           </Button>
-          <Link
-            to="/transfer-item-entry/new"
-            className="btn btn-primary jh-create-entity"
-            id="jh-create-entity"
-            data-cy="entityCreateButton"
-          >
+          <Link to="/application-user/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Create a new Transfer Item Entry
+            &nbsp; Create a new Application User
           </Link>
         </div>
       </h2>
@@ -177,71 +171,94 @@ export const TransferItemEntry = () => {
       </Row>
       <div className="table-responsive">
         <InfiniteScroll
-          dataLength={transferItemEntryList ? transferItemEntryList.length : 0}
+          dataLength={applicationUserList ? applicationUserList.length : 0}
           next={handleLoadMore}
           hasMore={paginationState.activePage - 1 < links.next}
           loader={<div className="loader">Loading ...</div>}
         >
-          {transferItemEntryList && transferItemEntryList.length > 0 ? (
+          {applicationUserList && applicationUserList.length > 0 ? (
             <Table responsive>
               <thead>
                 <tr>
                   <th className="hand" onClick={sort('id')}>
                     ID <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th>
-                    Transaction Item <FontAwesomeIcon icon="sort" />
+                  <th className="hand" onClick={sort('applicationIdentity')}>
+                    Application Identity <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('lastLoginTime')}>
+                    Last Login Time <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('timeOfCreation')}>
+                    Time Of Creation <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('lastTimeOfModification')}>
+                    Last Time Of Modification <FontAwesomeIcon icon="sort" />
+                  </th>
+                  <th className="hand" onClick={sort('userIdentifier')}>
+                    User Identifier <FontAwesomeIcon icon="sort" />
                   </th>
                   <th>
-                    Sales Receipt <FontAwesomeIcon icon="sort" />
+                    Created By <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('description')}>
-                    Description <FontAwesomeIcon icon="sort" />
+                  <th>
+                    Last Modified By <FontAwesomeIcon icon="sort" />
                   </th>
-                  <th className="hand" onClick={sort('itemAmount')}>
-                    Item Amount <FontAwesomeIcon icon="sort" />
+                  <th>
+                    System Identity <FontAwesomeIcon icon="sort" />
                   </th>
                   <th />
                 </tr>
               </thead>
               <tbody>
-                {transferItemEntryList.map((transferItemEntry, i) => (
+                {applicationUserList.map((applicationUser, i) => (
                   <tr key={`entity-${i}`} data-cy="entityTable">
                     <td>
-                      <Button tag={Link} to={`/transfer-item-entry/${transferItemEntry.id}`} color="link" size="sm">
-                        {transferItemEntry.id}
+                      <Button tag={Link} to={`/application-user/${applicationUser.id}`} color="link" size="sm">
+                        {applicationUser.id}
                       </Button>
                     </td>
-
+                    <td>{applicationUser.applicationIdentity}</td>
                     <td>
-                      {transferItemEntry.transactionItem ? (
-                        <Link to={`/transaction-item/${transferItemEntry.transactionItem.id}`}>
-                          {transferItemEntry.transactionItem.itemName}
+                      {applicationUser.lastLoginTime ? (
+                        <TextFormat type="date" value={applicationUser.lastLoginTime} format={APP_DATE_FORMAT} />
+                      ) : null}
+                    </td>
+                    <td>
+                      {applicationUser.timeOfCreation ? (
+                        <TextFormat type="date" value={applicationUser.timeOfCreation} format={APP_DATE_FORMAT} />
+                      ) : null}
+                    </td>
+                    <td>
+                      {applicationUser.lastTimeOfModification ? (
+                        <TextFormat type="date" value={applicationUser.lastTimeOfModification} format={APP_DATE_FORMAT} />
+                      ) : null}
+                    </td>
+                    <td>{applicationUser.userIdentifier}</td>
+                    <td>
+                      {applicationUser.createdBy ? (
+                        <Link to={`/application-user/${applicationUser.createdBy.id}`}>
+                          {applicationUser.createdBy.applicationIdentity}
                         </Link>
                       ) : (
                         ''
                       )}
                     </td>
-
                     <td>
-                      {transferItemEntry.salesReceipt ? (
-                        <Link to={`/sales-receipt/${transferItemEntry.salesReceipt.id}`}>{transferItemEntry.salesReceipt.id}</Link>
+                      {applicationUser.lastModifiedBy ? (
+                        <Link to={`/application-user/${applicationUser.lastModifiedBy.id}`}>
+                          {applicationUser.lastModifiedBy.applicationIdentity}
+                        </Link>
                       ) : (
                         ''
                       )}
                     </td>
-
-                    <td>{transferItemEntry.description}</td>
-                    {/*<td>{transferItemEntry.itemAmount}</td>*/}
-                    <td>
-                      <NumberFormatComponent formattedNumber={transferItemEntry.itemAmount} />
-                    </td>
-
+                    <td>{applicationUser.systemIdentity ? applicationUser.systemIdentity.login : ''}</td>
                     <td className="text-end">
                       <div className="btn-group flex-btn-group-container">
                         <Button
                           tag={Link}
-                          to={`/transfer-item-entry/${transferItemEntry.id}`}
+                          to={`/application-user/${applicationUser.id}`}
                           color="info"
                           size="sm"
                           data-cy="entityDetailsButton"
@@ -250,7 +267,7 @@ export const TransferItemEntry = () => {
                         </Button>
                         <Button
                           tag={Link}
-                          to={`/transfer-item-entry/${transferItemEntry.id}/edit`}
+                          to={`/application-user/${applicationUser.id}/edit`}
                           color="primary"
                           size="sm"
                           data-cy="entityEditButton"
@@ -259,7 +276,7 @@ export const TransferItemEntry = () => {
                         </Button>
                         <Button
                           tag={Link}
-                          to={`/transfer-item-entry/${transferItemEntry.id}/delete`}
+                          to={`/application-user/${applicationUser.id}/delete`}
                           color="danger"
                           size="sm"
                           data-cy="entityDeleteButton"
@@ -273,7 +290,7 @@ export const TransferItemEntry = () => {
               </tbody>
             </Table>
           ) : (
-            !loading && <div className="alert alert-warning">No Transfer Item Entries found</div>
+            !loading && <div className="alert alert-warning">No Application Users found</div>
           )}
         </InfiniteScroll>
       </div>
@@ -281,4 +298,4 @@ export const TransferItemEntry = () => {
   );
 };
 
-export default TransferItemEntry;
+export default ApplicationUser;

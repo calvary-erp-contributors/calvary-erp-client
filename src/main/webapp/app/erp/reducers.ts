@@ -10,12 +10,14 @@ import transactionCurrency from 'app/erp/transaction-currency/transaction-curren
 import balanceSheetItemType from 'app/erp/balance-sheet-item-type/balance-sheet-item-type.reducer';
 import balanceSheetItemValue from 'app/erp/balance-sheet-item-value/balance-sheet-item-value.reducer';
 import salesReceipt from 'app/erp/sales-receipt/sales-receipt.reducer';
+import salesReceiptProposal from 'app/erp/sales-receipt-proposal/sales-receipt-proposal.reducer';
 import salesReceiptTitle from 'app/erp/sales-receipt-title/sales-receipt-title.reducer';
 import transactionClass from 'app/erp/transaction-class/transaction-class.reducer';
 import transactionItem from 'app/erp/transaction-item/transaction-item.reducer';
 import transactionItemAmount from 'app/erp/transaction-item-amount/transaction-item-amount.reducer';
 import transactionItemEntry from 'app/erp/transaction-item-entry/transaction-item-entry.reducer';
 import transferItemEntry from 'app/erp/transfer-item-entry/transfer-item-entry.reducer';
+import salesReceiptCompilation from 'app/erp/sales-receipt-compilation/sales-receipt-compilation';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const entitiesReducers = {
@@ -31,6 +33,8 @@ const entitiesReducers = {
   balanceSheetItemType,
   balanceSheetItemValue,
   salesReceipt,
+  salesReceiptProposal,
+  salesReceiptCompilation,
   salesReceiptTitle,
   transactionClass,
   transactionItem,

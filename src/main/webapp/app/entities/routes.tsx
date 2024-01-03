@@ -21,6 +21,9 @@ import TransactionItemAmount from './transaction-item-amount';
 import TransactionItemEntry from './transaction-item-entry';
 import SalesReceiptTitle from './sales-receipt-title';
 import TransferItemEntry from './transfer-item-entry';
+import SalesReceiptProposal from './sales-receipt-proposal';
+import ApplicationUser from './application-user';
+import SalesReceiptCompilation from './sales-receipt-compilation';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 export default () => {
@@ -46,6 +49,9 @@ export default () => {
         <Route path="transaction-item-entry/*" element={<TransactionItemEntry />} />
         <Route path="sales-receipt-title/*" element={<SalesReceiptTitle />} />
         <Route path="transfer-item-entry/*" element={<TransferItemEntry />} />
+        <Route path="sales-receipt-proposal/*" element={<SalesReceiptProposal />} />
+        <Route path="application-user/*" element={<ApplicationUser />} />
+        <Route path="sales-receipt-compilation/*" element={<SalesReceiptCompilation />} />
         {/* jhipster-needle-add-route-path - JHipster will add routes here */}
       </ErrorBoundaryRoutes>
     </div>
