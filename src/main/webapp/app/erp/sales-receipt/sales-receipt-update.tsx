@@ -16,6 +16,7 @@ import { ISalesReceiptTitle } from 'app/shared/model/sales-receipt-title.model';
 import { getEntities as getSalesReceiptTitles } from 'app/entities/sales-receipt-title/sales-receipt-title.reducer';
 import { ISalesReceipt } from 'app/shared/model/sales-receipt.model';
 import { getEntity, updateEntity, createEntity, reset } from './sales-receipt.reducer';
+// import { useNavigate } from 'react-router-dom';
 
 export const SalesReceiptUpdate = () => {
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ export const SalesReceiptUpdate = () => {
   const loading = useAppSelector(state => state.salesReceipt.loading);
   const updating = useAppSelector(state => state.salesReceipt.updating);
   const updateSuccess = useAppSelector(state => state.salesReceipt.updateSuccess);
+  // const history = useHistory();
 
   const handleClose = () => {
     navigate('/sales-receipt' + location.search);
@@ -70,6 +72,54 @@ export const SalesReceiptUpdate = () => {
       dispatch(updateEntity(entity));
     }
   };
+
+  // const proposeEntity = values => {
+  //   const entity = {
+  //     ...salesReceiptEntity,
+  //     ...values,
+  //     transactionClass: transactionClasses.find(it => it.id.toString() === values.transactionClass.toString()),
+  //     dealer: dealers.find(it => it.id.toString() === values.dealer.toString()),
+  //     salesReceiptTitle: salesReceiptTitles.find(it => it.id.toString() === values.salesReceiptTitle.toString()),
+  //   };
+  //
+  //   if (isNew) {
+  //     dispatch(createEntity(entity));
+  //     // navigate('/transfer-item-entry');
+  //   } else {
+  //     dispatch(updateEntity(entity));
+  //     // navigate('/transfer-item-entry');
+  //   }
+  // };
+
+  const proposeEntity = values => {
+    const entity = {
+      ...salesReceiptEntity,
+      ...values,
+      transactionClass: values.transactionClass
+        ? transactionClasses.find(it => it.id.toString() === values.transactionClass.toString())
+        : null,
+      dealer: values.dealer ? dealers.find(it => it.id.toString() === values.dealer.toString()) : null,
+      salesReceiptTitle: values.salesReceiptTitle
+        ? salesReceiptTitles.find(it => it.id.toString() === values.salesReceiptTitle.toString())
+        : null,
+    };
+
+    if (isNew) {
+      dispatch(createEntity(entity));
+      navigate('/transfer-item-entry');
+    } else {
+      dispatch(updateEntity(entity));
+      navigate('/transfer-item-entry');
+    }
+  };
+
+  // const entity = {
+  //   ...salesReceiptEntity,
+  //   ...values,
+  //   transactionClass: values.transactionClass ? serializeWithoutCircular(values.transactionClass) : null,
+  //   dealer: values.dealer ? serializeWithoutCircular(values.dealer) : null,
+  //   salesReceiptTitle: values.salesReceiptTitle ? serializeWithoutCircular(values.salesReceiptTitle) : null,
+  // };
 
   const defaultValues = () =>
     isNew
@@ -188,6 +238,11 @@ export const SalesReceiptUpdate = () => {
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />
                 &nbsp; Save
+              </Button>
+              &nbsp;
+              <Button color="primary" id="save-entity" data-cy="entityProposeButton" onClick={proposeEntity} disabled={updating}>
+                <FontAwesomeIcon icon="save" />
+                &nbsp; Propose
               </Button>
             </ValidatedForm>
           )}

@@ -23,4 +23,7 @@ export const defaultValue: Readonly<ISalesReceipt> = {
   hasBeenEmailed: false,
   hasBeenProposed: false,
   shouldBeEmailed: false,
+  transactionDate: dayjs().format('yyyy-MM-dd'),
+  transactionItemEntries: [],
+  transferItemEntries: [],
 };

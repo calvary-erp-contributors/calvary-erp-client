@@ -21,6 +21,9 @@ const SalesReceiptMenuItems = () => {
       <MenuItem icon="asterisk" to="/sales-receipt-compilation">
         Sales Receipt Compilation
       </MenuItem>
+      <MenuItem icon="asterisk" to="/sales-receipt-update">
+        Sales Receipt Update
+      </MenuItem>
     </>
   );
 };
