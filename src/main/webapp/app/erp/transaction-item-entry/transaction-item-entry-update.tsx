@@ -15,6 +15,7 @@ import { getEntities as getSalesReceipts } from 'app/entities/sales-receipt/sale
 import { ITransactionItemEntry } from 'app/shared/model/transaction-item-entry.model';
 import { getEntity, updateEntity, createEntity, reset } from './transaction-item-entry.reducer';
 import AutocompleteSearchSalesReceipt from 'app/erp/auto-complete/sales-receipt.autocomplete';
+import TransactionItemAutocomplete from 'app/erp/auto-complete/transaction-items.autocomplete';
 
 export const TransactionItemEntryUpdate = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +34,7 @@ export const TransactionItemEntryUpdate = () => {
   const updateSuccess = useAppSelector(state => state.transactionItemEntry.updateSuccess);
 
   const [selectedSalesReceipt, setSelectedSalesReceipt] = useState<ISalesReceipt>(null);
+  const [selectedTransactionItem, setSelectedTransactionItem] = useState<ITransactionItem>(null);
 
   const handleClose = () => {
     navigate('/transaction-item-entry');
@@ -41,6 +43,12 @@ export const TransactionItemEntryUpdate = () => {
   const handleAccountSelectedEvent = pickedAccount => {
     if (pickedAccount) {
       setSelectedSalesReceipt(pickedAccount);
+    }
+  };
+
+  const handleTransactionItemSelectedEvent = pickedItem => {
+    if (pickedItem) {
+      setSelectedTransactionItem(pickedItem);
     }
   };
 
@@ -63,7 +71,7 @@ export const TransactionItemEntryUpdate = () => {
     const entity = {
       ...transactionItemEntryEntity,
       ...values,
-      transactionItem: transactionItems.find(it => it.id.toString() === values.transactionItem.toString()),
+      transactionItem: selectedTransactionItem,
       salesReceipt: salesReceiptSelected,
     };
 
@@ -102,24 +110,7 @@ export const TransactionItemEntryUpdate = () => {
                 <ValidatedField name="id" required readOnly id="transaction-item-entry-id" label="ID" validate={{ required: true }} />
               ) : null}
               <AutocompleteSearchSalesReceipt onSelectEntity={handleAccountSelectedEvent} />
-              <ValidatedField
-                id="transaction-item-entry-transactionItem"
-                name="transactionItem"
-                data-cy="transactionItem"
-                label="Transaction Item"
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {transactionItems
-                  ? transactionItems.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.itemName}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>This field is required.</FormText>
+              <TransactionItemAutocomplete onSelectEntity={handleTransactionItemSelectedEvent} />
               <ValidatedField
                 label="Description"
                 id="transaction-item-entry-description"

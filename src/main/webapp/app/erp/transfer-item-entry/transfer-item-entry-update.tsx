@@ -4,17 +4,15 @@ import { Button, Row, Col, FormText } from 'reactstrap';
 import { isNumber, ValidatedField, ValidatedForm } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
-import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { ITransactionItem } from 'app/shared/model/transaction-item.model';
 import { getEntities as getTransactionItems } from 'app/entities/transaction-item/transaction-item.reducer';
 import { ISalesReceipt } from 'app/shared/model/sales-receipt.model';
 import { getEntities as getSalesReceipts } from 'app/entities/sales-receipt/sales-receipt.reducer';
-import { ITransferItemEntry } from 'app/shared/model/transfer-item-entry.model';
 import { getEntity, updateEntity, createEntity, reset } from './transfer-item-entry.reducer';
 import AutocompleteSearchSalesReceipt from 'app/erp/auto-complete/sales-receipt.autocomplete';
+import TransactionItemAutocomplete from 'app/erp/auto-complete/transaction-items.autocomplete';
 
 export const TransferItemEntryUpdate = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +31,7 @@ export const TransferItemEntryUpdate = () => {
   const updateSuccess = useAppSelector(state => state.transferItemEntry.updateSuccess);
 
   const [selectedSalesReceipt, setSelectedSalesReceipt] = useState<ISalesReceipt>(null);
+  const [selectedTransactionItem, setSelectedTransactionItem] = useState<ITransactionItem>(null);
 
   const handleClose = () => {
     navigate('/transfer-item-entry');
@@ -41,6 +40,12 @@ export const TransferItemEntryUpdate = () => {
   const handleAccountSelectedEvent = pickedAccount => {
     if (pickedAccount) {
       setSelectedSalesReceipt(pickedAccount);
+    }
+  };
+
+  const handleTransactionItemSelectedEvent = pickedItem => {
+    if (pickedItem) {
+      setSelectedTransactionItem(pickedItem);
     }
   };
 
@@ -63,7 +68,7 @@ export const TransferItemEntryUpdate = () => {
     const entity = {
       ...transferItemEntryEntity,
       ...values,
-      transactionItem: transactionItems.find(it => it.id.toString() === values.transactionItem.toString()),
+      transactionItem: selectedTransactionItem,
       salesReceipt: salesReceiptSelected,
     };
 
@@ -101,43 +106,9 @@ export const TransferItemEntryUpdate = () => {
               {!isNew ? (
                 <ValidatedField name="id" required readOnly id="transfer-item-entry-id" label="ID" validate={{ required: true }} />
               ) : null}
-              {/*<ValidatedField
-                id="transfer-item-entry-salesReceipt"
-                name="salesReceipt"
-                data-cy="salesReceipt"
-                label="Sales Receipt"
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {salesReceipts
-                  ? salesReceipts.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>*/}
               <AutocompleteSearchSalesReceipt onSelectEntity={handleAccountSelectedEvent} />
               <FormText>This field is required.</FormText>
-              <ValidatedField
-                id="transfer-item-entry-transactionItem"
-                name="transactionItem"
-                data-cy="transactionItem"
-                label="Transaction Item"
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {transactionItems
-                  ? transactionItems.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.itemName}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>This field is required.</FormText>
+              <TransactionItemAutocomplete onSelectEntity={handleTransactionItemSelectedEvent} />
               <ValidatedField
                 label="Description"
                 id="transfer-item-entry-description"

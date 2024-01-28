@@ -56,6 +56,7 @@ const TransactionItemAutocomplete: React.FC<TransactionItemAutocompleteProps> = 
 
   return (
     <div>
+      <div>Item</div>
       <AsyncSelect
         value={selectedEntity ? { value: selectedEntity, label: selectedEntity.itemName } : null}
         onChange={handleOptionSelect}

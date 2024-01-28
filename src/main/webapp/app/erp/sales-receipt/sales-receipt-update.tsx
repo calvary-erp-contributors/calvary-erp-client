@@ -14,8 +14,11 @@ import { IDealer } from 'app/shared/model/dealer.model';
 import { getEntities as getDealers } from 'app/entities/dealer/dealer.reducer';
 import { ISalesReceiptTitle } from 'app/shared/model/sales-receipt-title.model';
 import { getEntities as getSalesReceiptTitles } from 'app/entities/sales-receipt-title/sales-receipt-title.reducer';
-import { ISalesReceipt } from 'app/shared/model/sales-receipt.model';
+import { ISalesReceipt, SalesReceipt } from 'app/shared/model/sales-receipt.model';
 import { getEntity, updateEntity, createEntity, reset } from './sales-receipt.reducer';
+import { toast } from 'react-toastify';
+import dayjs from 'dayjs';
+import { APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 // import { useNavigate } from 'react-router-dom';
 
 export const SalesReceiptUpdate = () => {
@@ -123,7 +126,10 @@ export const SalesReceiptUpdate = () => {
 
   const defaultValues = () =>
     isNew
-      ? {}
+      ? {
+          ...new SalesReceipt(),
+          transactionDate: dayjs().format(APP_LOCAL_DATE_FORMAT),
+        }
       : {
           ...salesReceiptEntity,
           transactionClass: salesReceiptEntity?.transactionClass?.id,

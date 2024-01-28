@@ -4,11 +4,14 @@ import { defaultValue, ISalesReceipt } from 'app/shared/model/sales-receipt.mode
 import { IDealer } from 'app/shared/model/dealer.model';
 import AutocompleteSearchTransactionAccount from 'app/erp/auto-complete/transaction-account.autocomplete';
 import DealerAutocomplete from 'app/erp/auto-complete/dealer.autocomplete';
+import TransactionItemAutocomplete from 'app/erp/auto-complete/transaction-items.autocomplete';
+import dayjs from 'dayjs';
 
 const SalesReceiptUpdateForm: React.FC = () => {
   const [selectedDealer, setSelectedDealer] = useState<IDealer | null>(null);
 
   const initialValues: ISalesReceipt = defaultValue;
+  initialValues.transactionDate = dayjs().format('yyyy-MM-dd');
 
   const handleSubmit = (values: ISalesReceipt) => {
     // Handle form submission (Redux dispatch, API call, etc.)
@@ -21,13 +24,23 @@ const SalesReceiptUpdateForm: React.FC = () => {
     }
   };
 
+  const handleTransactionItemSelectedEvent = pickedAccount => {
+    if (pickedAccount) {
+      // TODO update transactionItemEntries ARRAY
+    }
+  };
+
+  const handleTransferItemSelectedEvent = pickedAccount => {
+    if (pickedAccount) {
+      // TODO update transactionItemEntries ARRAY
+    }
+  };
+
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {({ values }) => (
         <Form>
           <h2>Sales Receipt</h2>
-          {/*<label htmlFor="contributor">Contributor:</label>
-          <Field id="contributor" name="contributor" type="text" />*/}
           <DealerAutocomplete onSelectInstance={handleDealerSelectedEvent} />
           &nbsp;
           <label htmlFor="date">Date:</label>
@@ -38,10 +51,14 @@ const SalesReceiptUpdateForm: React.FC = () => {
                 <h3>Transaction Item Entries</h3>
                 {values.transactionItemEntries.map((entry, index) => (
                   <div key={index}>
-                    <label htmlFor={`transactionItemEntries.${index}.transactionItem.particulars`}>Particulars:</label>
-                    <Field name={`transactionItemEntries.${index}.transactionItem.particulars`} type="text" />
+                    {/*<label htmlFor={`transactionItemEntries.${index}.transactionItem.particulars`}>Particulars:</label>
+                    <Field name={`transactionItemEntries.${index}.transactionItem.particulars`} type="text" />*/}
+
+                    <TransactionItemAutocomplete onSelectEntity={handleTransactionItemSelectedEvent} />
+
                     <label htmlFor={`transactionItemEntries.${index}.amount`}>Amount:</label>
                     <Field name={`transactionItemEntries.${index}.amount`} type="number" />
+
                     <button type="button" onClick={() => remove(index)}>
                       Remove Entry
                     </button>
@@ -68,10 +85,13 @@ const SalesReceiptUpdateForm: React.FC = () => {
                 <h3>Transfer Item Entries</h3>
                 {values.transferItemEntries.map((entry, index) => (
                   <div key={index}>
-                    <label htmlFor={`transactionItemEntries.${index}.transactionItem.particulars`}>Particulars:</label>
-                    <Field name={`transactionItemEntries.${index}.transactionItem.particulars`} type="text" />
-                    <label htmlFor={`transactionItemEntries.${index}.amount`}>Amount:</label>
-                    <Field name={`transactionItemEntries.${index}.amount`} type="number" />
+                    {/*<label htmlFor={`transactionItemEntries.${index}.transactionItem.particulars`}>Particulars:</label>
+                    <Field name={`transactionItemEntries.${index}.transactionItem.particulars`} type="text" />*/}
+
+                    <TransactionItemAutocomplete onSelectEntity={handleTransferItemSelectedEvent} />
+
+                    <label htmlFor={`transferItemEntries.${index}.amount`}>Amount:</label>
+                    <Field name={`transferItemEntries.${index}.amount`} type="number" />
                     <button type="button" onClick={() => remove(index)}>
                       Remove Entry
                     </button>
