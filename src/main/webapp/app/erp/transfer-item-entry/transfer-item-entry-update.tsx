@@ -22,9 +22,10 @@ export const TransferItemEntryUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const transactionItems = useAppSelector(state => state.transactionItem.entities);
-  const salesReceipts = useAppSelector(state => state.salesReceipt.entities);
+  // const transactionItems = useAppSelector(state => state.transactionItem.entities);
+  // const salesReceipts = useAppSelector(state => state.salesReceipt.entities);
   const salesReceiptSelected = useAppSelector(state => state.salesReceipt.entity);
+  const transactionItemSelected = useAppSelector(state => state.transactionItem.entity);
   const transferItemEntryEntity = useAppSelector(state => state.transferItemEntry.entity);
   const loading = useAppSelector(state => state.transferItemEntry.loading);
   const updating = useAppSelector(state => state.transferItemEntry.updating);
@@ -68,7 +69,7 @@ export const TransferItemEntryUpdate = () => {
     const entity = {
       ...transferItemEntryEntity,
       ...values,
-      transactionItem: selectedTransactionItem,
+      transactionItem: transactionItemSelected,
       salesReceipt: salesReceiptSelected,
     };
 
