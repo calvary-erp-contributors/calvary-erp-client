@@ -28,6 +28,7 @@ export const TransactionItemEntryUpdate = () => {
   const transactionItems = useAppSelector(state => state.transactionItem.entities);
   const salesReceipts = useAppSelector(state => state.salesReceipt.entities);
   const salesReceiptSelected = useAppSelector(state => state.salesReceipt.entity);
+  const transactionItemSelected = useAppSelector(state => state.transactionItem.entity);
   const transactionItemEntryEntity = useAppSelector(state => state.transactionItemEntry.entity);
   const loading = useAppSelector(state => state.transactionItemEntry.loading);
   const updating = useAppSelector(state => state.transactionItemEntry.updating);
@@ -71,7 +72,7 @@ export const TransactionItemEntryUpdate = () => {
     const entity = {
       ...transactionItemEntryEntity,
       ...values,
-      transactionItem: selectedTransactionItem,
+      transactionItem: transactionItemSelected,
       salesReceipt: salesReceiptSelected,
     };
 

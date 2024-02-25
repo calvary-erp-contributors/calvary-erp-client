@@ -33,6 +33,8 @@ export const TransferItemEntry = () => {
   const entity = useAppSelector(state => state.transferItemEntry.entity);
   const updateSuccess = useAppSelector(state => state.transferItemEntry.updateSuccess);
 
+  const salesReceiptEntity = useAppSelector(state => state.salesReceipt.entity);
+
   const getAllEntities = () => {
     if (search) {
       dispatch(

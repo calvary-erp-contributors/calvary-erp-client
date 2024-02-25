@@ -39,7 +39,7 @@ export const SalesReceiptUpdate = () => {
   // const history = useHistory();
 
   const handleClose = () => {
-    navigate('/sales-receipt' + location.search);
+    navigate('/transfer-item-entry' + location.search);
   };
 
   useEffect(() => {
@@ -75,54 +75,6 @@ export const SalesReceiptUpdate = () => {
       dispatch(updateEntity(entity));
     }
   };
-
-  // const proposeEntity = values => {
-  //   const entity = {
-  //     ...salesReceiptEntity,
-  //     ...values,
-  //     transactionClass: transactionClasses.find(it => it.id.toString() === values.transactionClass.toString()),
-  //     dealer: dealers.find(it => it.id.toString() === values.dealer.toString()),
-  //     salesReceiptTitle: salesReceiptTitles.find(it => it.id.toString() === values.salesReceiptTitle.toString()),
-  //   };
-  //
-  //   if (isNew) {
-  //     dispatch(createEntity(entity));
-  //     // navigate('/transfer-item-entry');
-  //   } else {
-  //     dispatch(updateEntity(entity));
-  //     // navigate('/transfer-item-entry');
-  //   }
-  // };
-
-  const proposeEntity = values => {
-    const entity = {
-      ...salesReceiptEntity,
-      ...values,
-      transactionClass: values.transactionClass
-        ? transactionClasses.find(it => it.id.toString() === values.transactionClass.toString())
-        : null,
-      dealer: values.dealer ? dealers.find(it => it.id.toString() === values.dealer.toString()) : null,
-      salesReceiptTitle: values.salesReceiptTitle
-        ? salesReceiptTitles.find(it => it.id.toString() === values.salesReceiptTitle.toString())
-        : null,
-    };
-
-    if (isNew) {
-      dispatch(createEntity(entity));
-      navigate('/transfer-item-entry');
-    } else {
-      dispatch(updateEntity(entity));
-      navigate('/transfer-item-entry');
-    }
-  };
-
-  // const entity = {
-  //   ...salesReceiptEntity,
-  //   ...values,
-  //   transactionClass: values.transactionClass ? serializeWithoutCircular(values.transactionClass) : null,
-  //   dealer: values.dealer ? serializeWithoutCircular(values.dealer) : null,
-  //   salesReceiptTitle: values.salesReceiptTitle ? serializeWithoutCircular(values.salesReceiptTitle) : null,
-  // };
 
   const defaultValues = () =>
     isNew
@@ -243,12 +195,7 @@ export const SalesReceiptUpdate = () => {
               &nbsp;
               <Button color="primary" id="save-entity" data-cy="entityCreateSaveButton" type="submit" disabled={updating}>
                 <FontAwesomeIcon icon="save" />
-                &nbsp; Save
-              </Button>
-              &nbsp;
-              <Button color="primary" id="save-entity" data-cy="entityProposeButton" onClick={proposeEntity} disabled={updating}>
-                <FontAwesomeIcon icon="save" />
-                &nbsp; Propose
+                &nbsp; Update Details
               </Button>
             </ValidatedForm>
           )}

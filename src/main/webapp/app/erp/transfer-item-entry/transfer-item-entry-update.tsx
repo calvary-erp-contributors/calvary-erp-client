@@ -7,9 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { ITransactionItem } from 'app/shared/model/transaction-item.model';
-import { getEntities as getTransactionItems } from 'app/entities/transaction-item/transaction-item.reducer';
+import { getEntities as getTransactionItems } from '../transaction-item/transaction-item.reducer';
 import { ISalesReceipt } from 'app/shared/model/sales-receipt.model';
-import { getEntities as getSalesReceipts } from 'app/entities/sales-receipt/sales-receipt.reducer';
+import { getEntities as getSalesReceipts } from '../sales-receipt/sales-receipt.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './transfer-item-entry.reducer';
 import AutocompleteSearchSalesReceipt from 'app/erp/auto-complete/sales-receipt.autocomplete';
 import TransactionItemAutocomplete from 'app/erp/auto-complete/transaction-items.autocomplete';
@@ -122,10 +122,10 @@ export const TransferItemEntryUpdate = () => {
                 name="itemAmount"
                 data-cy="itemAmount"
                 type="text"
-                validate={{
+                /*validate={{
                   required: { value: true, message: 'This field is required.' },
                   validate: v => isNumber(v) || 'This field should be a number.',
-                }}
+                }}*/
               />
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/transfer-item-entry" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
