@@ -57,16 +57,16 @@ Calvary ERP's Accounting Module follows a structured workflow for handling finan
 
 ## **Customization and Extensibility**
 
-- Calvary ERP's Accounting Module is designed to be highly customizable and extensible to accommodate the unique financial needs of different businesses.
+- Calvary ERP's Accounting Module is designed to be highly customizable and extensible to accommodate the unique financial needs of different religious institution.
 - Users can define their Chart of Accounts, transaction types, and reporting structures.
 
 ## **Integration with Other Modules**
 
 - The Accounting Module seamlessly integrates with other modules within Calvary ERP, such as Sales, Purchasing, and Inventory.
-- This integration ensures that financial transactions from various parts of the business are accurately recorded.
+- This integration ensures that financial transactions from various parts of the institution are accurately recorded.
 
 ## **Conclusion**
 
-Calvary ERP's Accounting Module follows a robust design pattern based on Double-Entry Accounting principles. It provides a flexible and comprehensive solution for businesses to manage their financial transactions, accounts, and reporting effectively.
+Calvary ERP's Accounting Module follows a robust design pattern based on Double-Entry Accounting principles. It provides a flexible and comprehensive solution for institutions to manage their financial transactions, accounts, and reporting effectively.
 
-This design pattern ensures accuracy, compliance with accounting standards, and adaptability to various business requirements.
+This design pattern ensures accuracy, compliance with accounting standards, and adaptability to various religious institution requirements.

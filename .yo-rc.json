@@ -40,7 +40,9 @@
       "TransferItemEntry",
       "SalesReceiptProposal",
       "ApplicationUser",
-      "SalesReceiptCompilation"
+      "SalesReceiptCompilation",
+      "TransferItem",
+      "ReceiptEmailRequest"
     ],
     "entitySuffix": "",
     "gradleEnterpriseHost": null,

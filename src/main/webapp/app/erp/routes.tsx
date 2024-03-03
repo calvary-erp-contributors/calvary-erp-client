@@ -24,6 +24,8 @@ import SalesReceiptTitle from './sales-receipt-title';
 import SalesReceiptProposal from './sales-receipt-proposal';
 import SalesReceiptCompilation from './sales-receipt-compilation';
 import SalesReceiptUpdateForm from 'app/erp/sales-receipt-update/sales-receipt-update-form';
+import TransferItem from './transfer-item';
+import ReceiptEmailRequest from './receipt-email-request';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 export default () => {
@@ -52,6 +54,8 @@ export default () => {
         <Route path="transaction-item-entry/*" element={<TransactionItemEntry />} />
         <Route path="transfer-item-entry/*" element={<TransferItemEntry />} />
         <Route path="sales-receipt-update/*" element={<SalesReceiptUpdateForm />} />
+        <Route path="transfer-item/*" element={<TransferItem />} />
+        <Route path="receipt-email-request/*" element={<ReceiptEmailRequest />} />
         {/* jhipster-needle-add-route-path - JHipster will add routes here */}
       </ErrorBoundaryRoutes>
     </div>

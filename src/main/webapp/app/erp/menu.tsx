@@ -54,6 +54,12 @@ const ERPMenuItems = () => {
       <MenuItem icon="asterisk" to="/transaction-item-entry">
         Transaction Item Entry
       </MenuItem>
+      <MenuItem icon="asterisk" to="/transfer-item">
+        Transfer Item
+      </MenuItem>
+      <MenuItem icon="asterisk" to="/receipt-email-request">
+        Receipt Email Request
+      </MenuItem>
     </>
   );
 };
