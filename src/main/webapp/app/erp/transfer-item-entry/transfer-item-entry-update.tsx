@@ -6,13 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { ITransactionItem } from 'app/shared/model/transaction-item.model';
-import { getEntities as getTransactionItems } from '../transaction-item/transaction-item.reducer';
+import { ITransferItem } from 'app/shared/model/transfer-item.model';
+import { getEntities as getTransferItems } from 'app/entities/transfer-item/transfer-item.reducer';
 import { ISalesReceipt } from 'app/shared/model/sales-receipt.model';
 import { getEntities as getSalesReceipts } from '../sales-receipt/sales-receipt.reducer';
 import { getEntity, updateEntity, createEntity, reset } from './transfer-item-entry.reducer';
 import AutocompleteSearchSalesReceipt from 'app/erp/auto-complete/sales-receipt.autocomplete';
 import TransactionItemAutocomplete from 'app/erp/auto-complete/transaction-items.autocomplete';
+import TransferItemAutocomplete from 'app/erp/auto-complete/transfer-items.autocomplete';
 
 export const TransferItemEntryUpdate = () => {
   const dispatch = useAppDispatch();
@@ -24,15 +25,16 @@ export const TransferItemEntryUpdate = () => {
 
   // const transactionItems = useAppSelector(state => state.transactionItem.entities);
   // const salesReceipts = useAppSelector(state => state.salesReceipt.entities);
+  const transferItems = useAppSelector(state => state.transferItem.entities);
   const salesReceiptSelected = useAppSelector(state => state.salesReceipt.entity);
-  const transactionItemSelected = useAppSelector(state => state.transactionItem.entity);
+  const transferItemSelected = useAppSelector(state => state.transferItem.entity);
   const transferItemEntryEntity = useAppSelector(state => state.transferItemEntry.entity);
   const loading = useAppSelector(state => state.transferItemEntry.loading);
   const updating = useAppSelector(state => state.transferItemEntry.updating);
   const updateSuccess = useAppSelector(state => state.transferItemEntry.updateSuccess);
 
   const [selectedSalesReceipt, setSelectedSalesReceipt] = useState<ISalesReceipt>(null);
-  const [selectedTransactionItem, setSelectedTransactionItem] = useState<ITransactionItem>(null);
+  const [selectedTransferItem, setSelectedTransferItem] = useState<ITransferItem>(null);
 
   const handleClose = () => {
     navigate('/transfer-item-entry');
@@ -44,9 +46,9 @@ export const TransferItemEntryUpdate = () => {
     }
   };
 
-  const handleTransactionItemSelectedEvent = pickedItem => {
+  const handleTransferItemSelectedEvent = pickedItem => {
     if (pickedItem) {
-      setSelectedTransactionItem(pickedItem);
+      setSelectedTransferItem(pickedItem);
     }
   };
 
@@ -55,7 +57,7 @@ export const TransferItemEntryUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getTransactionItems({}));
+    dispatch(getTransferItems({}));
     dispatch(getSalesReceipts({}));
   }, []);
 
@@ -69,7 +71,7 @@ export const TransferItemEntryUpdate = () => {
     const entity = {
       ...transferItemEntryEntity,
       ...values,
-      transactionItem: transactionItemSelected,
+      transferItem: transferItemSelected,
       salesReceipt: salesReceiptSelected,
     };
 
@@ -85,7 +87,7 @@ export const TransferItemEntryUpdate = () => {
       ? {}
       : {
           ...transferItemEntryEntity,
-          transactionItem: transferItemEntryEntity?.transactionItem?.id,
+          transferItem: transferItemEntryEntity?.transferItem?.id,
           salesReceipt: transferItemEntryEntity?.salesReceipt?.id,
         };
 
@@ -109,7 +111,7 @@ export const TransferItemEntryUpdate = () => {
               ) : null}
               <AutocompleteSearchSalesReceipt onSelectEntity={handleAccountSelectedEvent} />
               <FormText>This field is required.</FormText>
-              <TransactionItemAutocomplete onSelectEntity={handleTransactionItemSelectedEvent} />
+              <TransferItemAutocomplete onSelectEntity={handleTransferItemSelectedEvent} />
               <ValidatedField
                 label="Description"
                 id="transfer-item-entry-description"

@@ -1,12 +1,12 @@
-import { ITransactionItem } from 'app/shared/model/transaction-item.model';
 import { ISalesReceipt } from 'app/shared/model/sales-receipt.model';
+import { ITransferItem } from 'app/shared/model/transfer-item.model';
 
 export interface ITransferItemEntry {
   id?: number;
   description?: string | null;
   itemAmount?: number;
-  transactionItem?: ITransactionItem;
   salesReceipt?: ISalesReceipt;
+  transferItem?: ITransferItem;
 }
 
 export const defaultValue: Readonly<ITransferItemEntry> = {};

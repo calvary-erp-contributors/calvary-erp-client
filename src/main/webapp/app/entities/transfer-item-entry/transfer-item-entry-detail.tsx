@@ -36,10 +36,10 @@ export const TransferItemEntryDetail = () => {
             <span id="itemAmount">Item Amount</span>
           </dt>
           <dd>{transferItemEntryEntity.itemAmount}</dd>
-          <dt>Transaction Item</dt>
-          <dd>{transferItemEntryEntity.transactionItem ? transferItemEntryEntity.transactionItem.itemName : ''}</dd>
           <dt>Sales Receipt</dt>
           <dd>{transferItemEntryEntity.salesReceipt ? transferItemEntryEntity.salesReceipt.id : ''}</dd>
+          <dt>Transfer Item</dt>
+          <dd>{transferItemEntryEntity.transferItem ? transferItemEntryEntity.transferItem.itemName : ''}</dd>
         </dl>
         <Button tag={Link} to="/transfer-item-entry" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

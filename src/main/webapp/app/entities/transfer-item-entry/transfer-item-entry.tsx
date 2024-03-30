@@ -195,10 +195,10 @@ export const TransferItemEntry = () => {
                     Item Amount <FontAwesomeIcon icon="sort" />
                   </th>
                   <th>
-                    Transaction Item <FontAwesomeIcon icon="sort" />
+                    Sales Receipt <FontAwesomeIcon icon="sort" />
                   </th>
                   <th>
-                    Sales Receipt <FontAwesomeIcon icon="sort" />
+                    Transfer Item <FontAwesomeIcon icon="sort" />
                   </th>
                   <th />
                 </tr>
@@ -214,17 +214,15 @@ export const TransferItemEntry = () => {
                     <td>{transferItemEntry.description}</td>
                     <td>{transferItemEntry.itemAmount}</td>
                     <td>
-                      {transferItemEntry.transactionItem ? (
-                        <Link to={`/transaction-item/${transferItemEntry.transactionItem.id}`}>
-                          {transferItemEntry.transactionItem.itemName}
-                        </Link>
+                      {transferItemEntry.salesReceipt ? (
+                        <Link to={`/sales-receipt/${transferItemEntry.salesReceipt.id}`}>{transferItemEntry.salesReceipt.id}</Link>
                       ) : (
                         ''
                       )}
                     </td>
                     <td>
-                      {transferItemEntry.salesReceipt ? (
-                        <Link to={`/sales-receipt/${transferItemEntry.salesReceipt.id}`}>{transferItemEntry.salesReceipt.id}</Link>
+                      {transferItemEntry.transferItem ? (
+                        <Link to={`/transfer-item/${transferItemEntry.transferItem.id}`}>{transferItemEntry.transferItem.itemName}</Link>
                       ) : (
                         ''
                       )}

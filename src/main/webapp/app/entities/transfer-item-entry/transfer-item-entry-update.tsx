@@ -8,10 +8,10 @@ import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateT
 import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
-import { ITransactionItem } from 'app/shared/model/transaction-item.model';
-import { getEntities as getTransactionItems } from 'app/entities/transaction-item/transaction-item.reducer';
 import { ISalesReceipt } from 'app/shared/model/sales-receipt.model';
 import { getEntities as getSalesReceipts } from 'app/entities/sales-receipt/sales-receipt.reducer';
+import { ITransferItem } from 'app/shared/model/transfer-item.model';
+import { getEntities as getTransferItems } from 'app/entities/transfer-item/transfer-item.reducer';
 import { ITransferItemEntry } from 'app/shared/model/transfer-item-entry.model';
 import { getEntity, updateEntity, createEntity, reset } from './transfer-item-entry.reducer';
 
@@ -23,8 +23,8 @@ export const TransferItemEntryUpdate = () => {
   const { id } = useParams<'id'>();
   const isNew = id === undefined;
 
-  const transactionItems = useAppSelector(state => state.transactionItem.entities);
   const salesReceipts = useAppSelector(state => state.salesReceipt.entities);
+  const transferItems = useAppSelector(state => state.transferItem.entities);
   const transferItemEntryEntity = useAppSelector(state => state.transferItemEntry.entity);
   const loading = useAppSelector(state => state.transferItemEntry.loading);
   const updating = useAppSelector(state => state.transferItemEntry.updating);
@@ -39,8 +39,8 @@ export const TransferItemEntryUpdate = () => {
       dispatch(getEntity(id));
     }
 
-    dispatch(getTransactionItems({}));
     dispatch(getSalesReceipts({}));
+    dispatch(getTransferItems({}));
   }, []);
 
   useEffect(() => {
@@ -53,8 +53,8 @@ export const TransferItemEntryUpdate = () => {
     const entity = {
       ...transferItemEntryEntity,
       ...values,
-      transactionItem: transactionItems.find(it => it.id.toString() === values.transactionItem.toString()),
       salesReceipt: salesReceipts.find(it => it.id.toString() === values.salesReceipt.toString()),
+      transferItem: transferItems.find(it => it.id.toString() === values.transferItem.toString()),
     };
 
     if (isNew) {
@@ -69,8 +69,8 @@ export const TransferItemEntryUpdate = () => {
       ? {}
       : {
           ...transferItemEntryEntity,
-          transactionItem: transferItemEntryEntity?.transactionItem?.id,
           salesReceipt: transferItemEntryEntity?.salesReceipt?.id,
+          transferItem: transferItemEntryEntity?.transferItem?.id,
         };
 
   return (
@@ -110,24 +110,6 @@ export const TransferItemEntryUpdate = () => {
                 }}
               />
               <ValidatedField
-                id="transfer-item-entry-transactionItem"
-                name="transactionItem"
-                data-cy="transactionItem"
-                label="Transaction Item"
-                type="select"
-                required
-              >
-                <option value="" key="0" />
-                {transactionItems
-                  ? transactionItems.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.itemName}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <FormText>This field is required.</FormText>
-              <ValidatedField
                 id="transfer-item-entry-salesReceipt"
                 name="salesReceipt"
                 data-cy="salesReceipt"
@@ -140,6 +122,24 @@ export const TransferItemEntryUpdate = () => {
                   ? salesReceipts.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
                         {otherEntity.id}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <FormText>This field is required.</FormText>
+              <ValidatedField
+                id="transfer-item-entry-transferItem"
+                name="transferItem"
+                data-cy="transferItem"
+                label="Transfer Item"
+                type="select"
+                required
+              >
+                <option value="" key="0" />
+                {transferItems
+                  ? transferItems.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.itemName}
                       </option>
                     ))
                   : null}

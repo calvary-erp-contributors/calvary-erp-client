@@ -40,8 +40,8 @@ export const TransferItemEntryDetail = () => {
           <dd>
             <NumberFormatComponent formattedNumber={transferItemEntryEntity.itemAmount} />
           </dd>
-          <dt>Transaction Item</dt>
-          <dd>{transferItemEntryEntity.transactionItem ? transferItemEntryEntity.transactionItem.itemName : ''}</dd>
+          <dt>Transfer Item</dt>
+          <dd>{transferItemEntryEntity.transferItem ? transferItemEntryEntity.transferItem.itemName : ''}</dd>
           <dt>Sales Receipt</dt>
           <dd>{transferItemEntryEntity.salesReceipt ? transferItemEntryEntity.salesReceipt.id : ''}</dd>
         </dl>
