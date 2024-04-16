@@ -16,7 +16,7 @@ export const HomePage = () => {
         <span className="hipster rounded" />
       </Col>
       <Col md="9">
-        <h2>Calvary Church ERP</h2>
+        <h2>Calvary ERP</h2>
         <p className="lead">Data management and staging for religious organizations</p>
         {account?.login ? (
           <div>
