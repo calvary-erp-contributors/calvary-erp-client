@@ -6,7 +6,7 @@ import { translate } from 'react-jhipster';
 import { getEntity } from 'app/entities/transaction-account/transaction-account.reducer';
 import { useAppDispatch } from 'app/config/store';
 
-const apiSearchUrl = 'api/_search/transaction-accounts';
+const apiSearchUrl = 'api/app/_search/transaction-accounts';
 
 interface AutocompleteSearchTransactionAccountProps {
   onSelectAccount: (account: ITransactionAccount) => void;
@@ -36,9 +36,9 @@ const AutocompleteSearchTransactionAccount: React.FC<AutocompleteSearchTransacti
       border: state.isFocused ? '2px solid #3498db' : '2px solid #ced4da',
       boxShadow: state.isFocused ? '0 0 3px rgba(52, 152, 219, 0.5)' : 'none',
       '&:hover': {
-        border: '2px solid #3498db'
-      }
-    })
+        border: '2px solid #3498db',
+      },
+    }),
   };
 
   const handleOptionSelect = (option: { value: ITransactionAccount; label: string }) => {
@@ -68,4 +68,3 @@ const AutocompleteSearchTransactionAccount: React.FC<AutocompleteSearchTransacti
 };
 
 export default AutocompleteSearchTransactionAccount;
-

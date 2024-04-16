@@ -6,7 +6,7 @@ import { useAppDispatch } from 'app/config/store';
 import { getEntity } from '../dealer/dealer.reducer';
 import { IDealer } from 'app/shared/model/dealer.model';
 
-const apiSearchUrl = 'api/_search/dealers';
+const apiSearchUrl = 'api/app/_search/dealers';
 
 interface DealerAutocompleteProps {
   onSelectInstance: (account: IDealer) => void;

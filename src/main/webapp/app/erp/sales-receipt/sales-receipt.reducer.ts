@@ -15,8 +15,8 @@ const initialState: EntityState<ISalesReceipt> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/sales-receipts';
-const apiSearchUrl = 'api/_search/sales-receipts';
+const apiUrl = 'api/app/sales-receipts';
+const apiSearchUrl = 'api/app/_search/sales-receipts';
 
 // Actions
 

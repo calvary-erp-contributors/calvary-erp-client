@@ -15,8 +15,8 @@ const initialState: EntityState<IEventType> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/event-types';
-const apiSearchUrl = 'api/_search/event-types';
+const apiUrl = 'api/app/event-types';
+const apiSearchUrl = 'api/app/_search/event-types';
 
 // Actions
 

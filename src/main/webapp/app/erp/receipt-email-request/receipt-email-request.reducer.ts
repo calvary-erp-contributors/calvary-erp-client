@@ -15,7 +15,7 @@ const initialState: EntityState<IReceiptEmailRequest> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/receipt-email-requests';
+const apiUrl = 'api/app/receipt-email-requests';
 const apiSearchUrl = 'api/_search/receipt-email-requests';
 
 // Actions

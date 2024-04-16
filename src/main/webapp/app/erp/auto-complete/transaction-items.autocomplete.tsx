@@ -7,7 +7,7 @@ import { useAppDispatch } from 'app/config/store';
 import { ITransactionItem } from 'app/shared/model/transaction-item.model';
 import { getEntities as getTransactionItems } from 'app/erp/transaction-item/transaction-item.reducer';
 
-const apiSearchUrl = 'api/_search/transaction-items';
+const apiSearchUrl = 'api/app/_search/transaction-items';
 
 interface TransactionItemAutocompleteProps {
   onSelectEntity: (account: ITransactionItem) => void;

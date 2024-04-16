@@ -15,8 +15,8 @@ const initialState: EntityState<ITransactionCurrency> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/transaction-currencies';
-const apiSearchUrl = 'api/_search/transaction-currencies';
+const apiUrl = 'api/app/transaction-currencies';
+const apiSearchUrl = 'api/app/_search/transaction-currencies';
 
 // Actions
 

@@ -5,7 +5,7 @@ import { getEntity as getTransferItem } from '../transfer-item/transfer-item.red
 import { useAppDispatch } from 'app/config/store';
 import { ITransferItem } from 'app/shared/model/transfer-item.model';
 
-const apiSearchUrl = 'api/_search/transfer-items';
+const apiSearchUrl = 'api/app/_search/transfer-items';
 
 interface TransferItemAutocompleteProps {
   onSelectEntity: (account: ITransferItem) => void;

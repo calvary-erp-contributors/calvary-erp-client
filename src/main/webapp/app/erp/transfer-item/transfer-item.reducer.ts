@@ -15,8 +15,8 @@ const initialState: EntityState<ITransferItem> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/transfer-items';
-const apiSearchUrl = 'api/_search/transfer-items';
+const apiUrl = 'api/app/transfer-items';
+const apiSearchUrl = 'api/app/_search/transfer-items';
 
 // Actions
 

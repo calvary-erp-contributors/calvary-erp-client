@@ -15,8 +15,8 @@ const initialState: EntityState<IDealerType> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/dealer-types';
-const apiSearchUrl = 'api/_search/dealer-types';
+const apiUrl = 'api/app/dealer-types';
+const apiSearchUrl = 'api/app/_search/dealer-types';
 
 // Actions
 

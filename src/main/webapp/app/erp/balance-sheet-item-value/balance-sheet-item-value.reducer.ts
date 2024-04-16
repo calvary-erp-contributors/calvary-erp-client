@@ -15,7 +15,7 @@ const initialState: EntityState<IBalanceSheetItemValue> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/balance-sheet-item-values';
+const apiUrl = 'api/app/balance-sheet-item-values';
 const apiSearchUrl = 'api/_search/balance-sheet-item-values';
 
 // Actions

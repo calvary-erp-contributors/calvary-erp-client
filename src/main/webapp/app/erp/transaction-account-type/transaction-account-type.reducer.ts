@@ -15,7 +15,7 @@ const initialState: EntityState<ITransactionAccountType> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/transaction-account-types';
+const apiUrl = 'api/app/transaction-account-types';
 const apiSearchUrl = 'api/_search/transaction-account-types';
 
 // Actions

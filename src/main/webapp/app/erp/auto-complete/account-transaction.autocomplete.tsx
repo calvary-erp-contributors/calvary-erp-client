@@ -6,7 +6,7 @@ import { getEntity } from 'app/erp/account-transaction/account-transaction.reduc
 import { useAppDispatch } from 'app/config/store';
 import { IAccountTransaction } from 'app/shared/model/account-transaction.model';
 
-const apiSearchUrl = 'api/_search/account-transactions';
+const apiSearchUrl = 'api/app/_search/account-transactions';
 
 interface AccountTransactionAutocompleteProps {
   onSelectTransaction: (account: IAccountTransaction) => void;

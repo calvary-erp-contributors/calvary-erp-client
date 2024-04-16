@@ -15,8 +15,8 @@ const initialState: EntityState<IAccountingEvent> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/accounting-events';
-const apiSearchUrl = 'api/_search/accounting-events';
+const apiUrl = 'api/app/accounting-events';
+const apiSearchUrl = 'api/app/_search/accounting-events';
 
 // Actions
 

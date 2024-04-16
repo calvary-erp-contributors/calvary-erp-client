@@ -15,8 +15,8 @@ const initialState: EntityState<ITransactionClass> = {
   updateSuccess: false,
 };
 
-const apiUrl = 'api/transaction-classes';
-const apiSearchUrl = 'api/_search/transaction-classes';
+const apiUrl = 'api/app/transaction-classes';
+const apiSearchUrl = 'api/app/_search/transaction-classes';
 
 // Actions
 
