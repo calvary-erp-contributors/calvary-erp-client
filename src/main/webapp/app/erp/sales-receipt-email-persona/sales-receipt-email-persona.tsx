@@ -11,6 +11,9 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { ISalesReceiptEmailPersona } from 'app/shared/model/sales-receipt-email-persona.model';
 import { searchEntities, getEntities } from './sales-receipt-email-persona.reducer';
+import { convertUUIDFromServer } from 'app/shared/util/uuid-util';
+import NumberFormatComponent from 'app/erp/utilities/number-format.component';
+import UUIDFormatComponent from '../utilities/uuid-format.component';
 
 export const SalesReceiptEmailPersona = () => {
   const dispatch = useAppDispatch();
@@ -246,7 +249,9 @@ export const SalesReceiptEmailPersona = () => {
                       {salesReceiptEmailPersona.id}
                     </Button>
                   </td>
-                  <td>{salesReceiptEmailPersona.emailIdentifier}</td>
+                  <td>
+                    <UUIDFormatComponent formattedUUID={salesReceiptEmailPersona.emailIdentifier} />
+                  </td>
                   <td>{salesReceiptEmailPersona.mainEmail}</td>
                   <td>{salesReceiptEmailPersona.clearCopyEmail ? 'true' : 'false'}</td>
                   <td>{salesReceiptEmailPersona.blindCopyEmail ? 'true' : 'false'}</td>

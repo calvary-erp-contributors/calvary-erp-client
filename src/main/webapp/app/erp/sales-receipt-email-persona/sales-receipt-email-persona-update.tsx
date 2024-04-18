@@ -14,6 +14,8 @@ import { IDealer } from 'app/shared/model/dealer.model';
 import { getEntities as getDealers } from 'app/entities/dealer/dealer.reducer';
 import { ISalesReceiptEmailPersona } from 'app/shared/model/sales-receipt-email-persona.model';
 import { getEntity, updateEntity, createEntity, reset } from './sales-receipt-email-persona.reducer';
+import { uuidv7 } from 'uuidv7';
+import { convertUUIDFromServer, defaultUUID } from 'app/shared/util/uuid-util';
 
 export const SalesReceiptEmailPersonaUpdate = () => {
   const dispatch = useAppDispatch();
@@ -75,6 +77,13 @@ export const SalesReceiptEmailPersonaUpdate = () => {
       ? {
           createdAt: displayDefaultDateTime(),
           lastModifedAt: displayDefaultDateTime(),
+          emailIdentifier: defaultUUID(),
+          languageKeyCode: 'en',
+          blindCopyEmail: false,
+          clearCopyEmail: false,
+          preferredGreeting: 'Dear',
+          preferredSignature: 'Fellow servants,',
+          preferredSignatureDesignation: 'Treasury Team',
         }
       : {
           ...salesReceiptEmailPersonaEntity,
@@ -103,6 +112,39 @@ export const SalesReceiptEmailPersonaUpdate = () => {
               {!isNew ? (
                 <ValidatedField name="id" required readOnly id="sales-receipt-email-persona-id" label="ID" validate={{ required: true }} />
               ) : null}
+              <ValidatedField
+                id="sales-receipt-email-persona-contributor"
+                name="contributor"
+                data-cy="contributor"
+                label="Contributor"
+                type="select"
+              >
+                <option value="" key="0" />
+                {dealers
+                  ? dealers.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.name}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
+              <ValidatedField
+                label="Preferred Greeting Designation"
+                id="sales-receipt-email-persona-preferredGreetingDesignation"
+                name="preferredGreetingDesignation"
+                data-cy="preferredGreetingDesignation"
+                type="text"
+              />
+              <ValidatedField
+                label="Preferred Signature Designation"
+                id="sales-receipt-email-persona-preferredSignatureDesignation"
+                name="preferredSignatureDesignation"
+                data-cy="preferredSignatureDesignation"
+                type="text"
+                validate={{
+                  required: { value: true, message: 'This field is required.' },
+                }}
+              />
               <ValidatedField
                 label="Email Identifier"
                 id="sales-receipt-email-persona-emailIdentifier"
@@ -161,13 +203,6 @@ export const SalesReceiptEmailPersonaUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Preferred Greeting Designation"
-                id="sales-receipt-email-persona-preferredGreetingDesignation"
-                name="preferredGreetingDesignation"
-                data-cy="preferredGreetingDesignation"
-                type="text"
-              />
-              <ValidatedField
                 label="Preferred Prefix"
                 id="sales-receipt-email-persona-preferredPrefix"
                 name="preferredPrefix"
@@ -224,16 +259,6 @@ export const SalesReceiptEmailPersonaUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Preferred Signature Designation"
-                id="sales-receipt-email-persona-preferredSignatureDesignation"
-                name="preferredSignatureDesignation"
-                data-cy="preferredSignatureDesignation"
-                type="text"
-                validate={{
-                  required: { value: true, message: 'This field is required.' },
-                }}
-              />
-              <ValidatedField
                 label="Include Service Details"
                 id="sales-receipt-email-persona-includeServiceDetails"
                 name="includeServiceDetails"
@@ -276,54 +301,6 @@ export const SalesReceiptEmailPersonaUpdate = () => {
                 type="datetime-local"
                 placeholder="YYYY-MM-DD HH:mm"
               />
-              <ValidatedField
-                id="sales-receipt-email-persona-createdBy"
-                name="createdBy"
-                data-cy="createdBy"
-                label="Created By"
-                type="select"
-              >
-                <option value="" key="0" />
-                {applicationUsers
-                  ? applicationUsers.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.applicationIdentity}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                id="sales-receipt-email-persona-lastModifiedBy"
-                name="lastModifiedBy"
-                data-cy="lastModifiedBy"
-                label="Last Modified By"
-                type="select"
-              >
-                <option value="" key="0" />
-                {applicationUsers
-                  ? applicationUsers.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.applicationIdentity}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
-              <ValidatedField
-                id="sales-receipt-email-persona-contributor"
-                name="contributor"
-                data-cy="contributor"
-                label="Contributor"
-                type="select"
-              >
-                <option value="" key="0" />
-                {dealers
-                  ? dealers.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.name}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/sales-receipt-email-persona" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
