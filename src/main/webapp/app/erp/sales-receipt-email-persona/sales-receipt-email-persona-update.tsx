@@ -16,6 +16,7 @@ import { ISalesReceiptEmailPersona } from 'app/shared/model/sales-receipt-email-
 import { getEntity, updateEntity, createEntity, reset } from './sales-receipt-email-persona.reducer';
 import { uuidv7 } from 'uuidv7';
 import { convertUUIDFromServer, defaultUUID } from 'app/shared/util/uuid-util';
+import DealerAutocomplete from 'app/erp/auto-complete/dealer.autocomplete';
 
 export const SalesReceiptEmailPersonaUpdate = () => {
   const dispatch = useAppDispatch();
@@ -31,6 +32,9 @@ export const SalesReceiptEmailPersonaUpdate = () => {
   const loading = useAppSelector(state => state.salesReceiptEmailPersona.loading);
   const updating = useAppSelector(state => state.salesReceiptEmailPersona.updating);
   const updateSuccess = useAppSelector(state => state.salesReceiptEmailPersona.updateSuccess);
+
+  const [selectedContributor, setSelectedContributor] = useState<IDealer | null>(null);
+  const contributorSelected = useAppSelector(state => state.dealer.entity);
 
   const handleClose = () => {
     navigate('/sales-receipt-email-persona' + location.search);
@@ -62,13 +66,19 @@ export const SalesReceiptEmailPersonaUpdate = () => {
       ...values,
       createdBy: applicationUsers.find(it => it.id.toString() === values.createdBy.toString()),
       lastModifiedBy: applicationUsers.find(it => it.id.toString() === values.lastModifiedBy.toString()),
-      contributor: dealers.find(it => it.id.toString() === values.contributor.toString()),
+      contributor: selectedContributor,
     };
 
     if (isNew) {
       dispatch(createEntity(entity));
     } else {
       dispatch(updateEntity(entity));
+    }
+  };
+
+  const handleDealerSelectedEvent = pickedDealer => {
+    if (pickedDealer) {
+      setSelectedContributor(pickedDealer);
     }
   };
 
@@ -112,7 +122,7 @@ export const SalesReceiptEmailPersonaUpdate = () => {
               {!isNew ? (
                 <ValidatedField name="id" required readOnly id="sales-receipt-email-persona-id" label="ID" validate={{ required: true }} />
               ) : null}
-              <ValidatedField
+              {/*<ValidatedField
                 id="sales-receipt-email-persona-contributor"
                 name="contributor"
                 data-cy="contributor"
@@ -127,7 +137,8 @@ export const SalesReceiptEmailPersonaUpdate = () => {
                       </option>
                     ))
                   : null}
-              </ValidatedField>
+              </ValidatedField>*/}
+              <DealerAutocomplete onSelectInstance={handleDealerSelectedEvent} />
               <ValidatedField
                 label="Preferred Greeting Designation"
                 id="sales-receipt-email-persona-preferredGreetingDesignation"
