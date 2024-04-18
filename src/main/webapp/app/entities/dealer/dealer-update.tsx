@@ -9,7 +9,9 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IDealerType } from 'app/shared/model/dealer-type.model';
-import { getEntities as getDealerTypes } from 'app/entities/dealer-type/dealer-type.reducer';
+import { getEntities as getDealerTypes } from '../dealer-type/dealer-type.reducer';
+import { ISalesReceiptEmailPersona } from 'app/shared/model/sales-receipt-email-persona.model';
+import { getEntities as getSalesReceiptEmailPersonas } from '../sales-receipt-email-persona/sales-receipt-email-persona.reducer';
 import { IDealer } from 'app/shared/model/dealer.model';
 import { getEntity, updateEntity, createEntity, reset } from './dealer.reducer';
 
@@ -22,6 +24,7 @@ export const DealerUpdate = () => {
   const isNew = id === undefined;
 
   const dealerTypes = useAppSelector(state => state.dealerType.entities);
+  const salesReceiptEmailPersonas = useAppSelector(state => state.salesReceiptEmailPersona.entities);
   const dealerEntity = useAppSelector(state => state.dealer.entity);
   const loading = useAppSelector(state => state.dealer.loading);
   const updating = useAppSelector(state => state.dealer.updating);
@@ -39,6 +42,7 @@ export const DealerUpdate = () => {
     }
 
     dispatch(getDealerTypes({}));
+    dispatch(getSalesReceiptEmailPersonas({}));
   }, []);
 
   useEffect(() => {
@@ -51,6 +55,7 @@ export const DealerUpdate = () => {
     const entity = {
       ...dealerEntity,
       ...values,
+      salesReceiptEmailPersonas: mapIdList(values.salesReceiptEmailPersonas),
       dealerType: dealerTypes.find(it => it.id.toString() === values.dealerType.toString()),
     };
 
@@ -67,6 +72,7 @@ export const DealerUpdate = () => {
       : {
           ...dealerEntity,
           dealerType: dealerEntity?.dealerType?.id,
+          salesReceiptEmailPersonas: dealerEntity?.salesReceiptEmailPersonas?.map(e => e.id.toString()),
         };
 
   return (
@@ -96,6 +102,13 @@ export const DealerUpdate = () => {
                 }}
               />
               <ValidatedField label="Main Email" id="dealer-mainEmail" name="mainEmail" data-cy="mainEmail" type="text" />
+              <ValidatedField
+                label="Dealer Reference"
+                id="dealer-dealerReference"
+                name="dealerReference"
+                data-cy="dealerReference"
+                type="text"
+              />
               <ValidatedField id="dealer-dealerType" name="dealerType" data-cy="dealerType" label="Dealer Type" type="select" required>
                 <option value="" key="0" />
                 {dealerTypes
@@ -107,6 +120,23 @@ export const DealerUpdate = () => {
                   : null}
               </ValidatedField>
               <FormText>This field is required.</FormText>
+              <ValidatedField
+                label="Sales Receipt Email Persona"
+                id="dealer-salesReceiptEmailPersona"
+                data-cy="salesReceiptEmailPersona"
+                type="select"
+                multiple
+                name="salesReceiptEmailPersonas"
+              >
+                <option value="" key="0" />
+                {salesReceiptEmailPersonas
+                  ? salesReceiptEmailPersonas.map(otherEntity => (
+                      <option value={otherEntity.id} key={otherEntity.id}>
+                        {otherEntity.preferredGreetingDesignation}
+                      </option>
+                    ))
+                  : null}
+              </ValidatedField>
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/dealer" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

@@ -17,9 +17,12 @@ import transactionItem from 'app/erp/transaction-item/transaction-item.reducer';
 import transactionItemAmount from 'app/erp/transaction-item-amount/transaction-item-amount.reducer';
 import transactionItemEntry from 'app/erp/transaction-item-entry/transaction-item-entry.reducer';
 import transferItemEntry from 'app/erp/transfer-item-entry/transfer-item-entry.reducer';
-import salesReceiptCompilation from 'app/erp/sales-receipt-compilation/sales-receipt-compilation';
+import salesReceiptCompilation from 'app/erp/sales-receipt-compilation/sales-receipt-compilation.reducer';
+import salesReceiptEmailPersona from './sales-receipt-email-persona/sales-receipt-email-persona.reducer';
+import applicationUser from './application-user/application-user.reducer';
 import receiptEmailRequest from 'app/erp/receipt-email-request/receipt-email-request.reducer';
 import transferItem from './transfer-item/transfer-item.reducer';
+import salesReceiptUpdate from './sales-receipt-update/sales-receipt.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const entitiesReducers = {
@@ -38,6 +41,7 @@ const entitiesReducers = {
   salesReceiptProposal,
   salesReceiptCompilation,
   salesReceiptTitle,
+  salesReceiptUpdate,
   transactionClass,
   transactionItem,
   transactionItemAmount,
@@ -45,6 +49,8 @@ const entitiesReducers = {
   transferItemEntry,
   receiptEmailRequest,
   transferItem,
+  salesReceiptEmailPersona,
+  applicationUser,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
 };
 

@@ -36,8 +36,23 @@ export const DealerDetail = () => {
             <span id="mainEmail">Main Email</span>
           </dt>
           <dd>{dealerEntity.mainEmail}</dd>
+          <dt>
+            <span id="dealerReference">Dealer Reference</span>
+          </dt>
+          <dd>{dealerEntity.dealerReference}</dd>
           <dt>Dealer Type</dt>
           <dd>{dealerEntity.dealerType ? dealerEntity.dealerType.name : ''}</dd>
+          <dt>Sales Receipt Email Persona</dt>
+          <dd>
+            {dealerEntity.salesReceiptEmailPersonas
+              ? dealerEntity.salesReceiptEmailPersonas.map((val, i) => (
+                  <span key={val.id}>
+                    <a>{val.preferredGreetingDesignation}</a>
+                    {dealerEntity.salesReceiptEmailPersonas && i === dealerEntity.salesReceiptEmailPersonas.length - 1 ? '' : ', '}
+                  </span>
+                ))
+              : null}
+          </dd>
         </dl>
         <Button tag={Link} to="/dealer" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>

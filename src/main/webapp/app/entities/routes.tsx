@@ -26,6 +26,7 @@ import ApplicationUser from './application-user';
 import SalesReceiptCompilation from './sales-receipt-compilation';
 import ReceiptEmailRequest from './receipt-email-request';
 import TransferItem from './transfer-item';
+import SalesReceiptEmailPersona from './sales-receipt-email-persona';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 export default () => {
@@ -56,6 +57,7 @@ export default () => {
         <Route path="sales-receipt-compilation/*" element={<SalesReceiptCompilation />} />
         <Route path="receipt-email-request/*" element={<ReceiptEmailRequest />} />
         <Route path="transfer-item/*" element={<TransferItem />} />
+        <Route path="sales-receipt-email-persona/*" element={<SalesReceiptEmailPersona />} />
         {/* jhipster-needle-add-route-path - JHipster will add routes here */}
       </ErrorBoundaryRoutes>
     </div>

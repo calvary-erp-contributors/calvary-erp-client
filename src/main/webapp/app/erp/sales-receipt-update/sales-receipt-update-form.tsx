@@ -11,7 +11,7 @@ const SalesReceiptUpdateForm: React.FC = () => {
   const [selectedDealer, setSelectedDealer] = useState<IDealer | null>(null);
 
   const initialValues: ISalesReceipt = defaultValue;
-  initialValues.transactionDate = dayjs().format('yyyy-MM-dd');
+  // TODO initialValues.transactionDate = dayjs().format('yyyy-MM-dd');
 
   const handleSubmit = (values: ISalesReceipt) => {
     // Handle form submission (Redux dispatch, API call, etc.)
