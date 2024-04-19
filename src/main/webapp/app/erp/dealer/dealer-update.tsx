@@ -13,6 +13,8 @@ import { getEntities as getDealerTypes } from '../dealer-type/dealer-type.reduce
 import { IDealer } from 'app/shared/model/dealer.model';
 import { getEntity, updateEntity, createEntity, reset } from './dealer.reducer';
 import { getEntities as getSalesReceiptEmailPersonas } from '../sales-receipt-email-persona/sales-receipt-email-persona.reducer';
+import M2MSalesReceiptEmailPersonaAutocomplete from 'app/erp/auto-complete/m2m-sales-receipt-email-persona.autocomplete';
+import { ISalesReceiptEmailPersona } from 'app/shared/model/sales-receipt-email-persona.model';
 
 export const DealerUpdate = () => {
   const dispatch = useAppDispatch();
@@ -27,7 +29,11 @@ export const DealerUpdate = () => {
   const loading = useAppSelector(state => state.dealer.loading);
   const updating = useAppSelector(state => state.dealer.updating);
   const updateSuccess = useAppSelector(state => state.dealer.updateSuccess);
+  // TODO update to select selected personas
   const salesReceiptEmailPersonas = useAppSelector(state => state.salesReceiptEmailPersona.entities);
+
+  // TODO And apparently this one doesn't work
+  const [selectedSalesReceiptEmailPersonas, setSelectedSalesReceiptEmailPersonas] = useState<ISalesReceiptEmailPersona[]>([]);
 
   const handleClose = () => {
     navigate('/dealer' + location.search);
@@ -54,7 +60,7 @@ export const DealerUpdate = () => {
     const entity = {
       ...dealerEntity,
       ...values,
-      salesReceiptEmailPersonas: mapIdList(values.salesReceiptEmailPersonas),
+      salesReceiptEmailPersonas: salesReceiptEmailPersonas,
       dealerType: dealerTypes.find(it => it.id.toString() === values.dealerType.toString()),
     };
 
@@ -62,6 +68,12 @@ export const DealerUpdate = () => {
       dispatch(createEntity(entity));
     } else {
       dispatch(updateEntity(entity));
+    }
+  };
+
+  const handleSalesReceiptEmailPersonaSelectedEvent = pickedPersonas => {
+    if (pickedPersonas) {
+      setSelectedSalesReceiptEmailPersonas([...pickedPersonas]);
     }
   };
 
@@ -101,13 +113,6 @@ export const DealerUpdate = () => {
                 }}
               />
               <ValidatedField label="Main Email" id="dealer-mainEmail" name="mainEmail" data-cy="mainEmail" type="text" />
-              <ValidatedField
-                label="Dealer Reference"
-                id="dealer-dealerReference"
-                name="dealerReference"
-                data-cy="dealerReference"
-                type="text"
-              />
               <ValidatedField id="dealer-dealerType" name="dealerType" data-cy="dealerType" label="Dealer Type" type="select" required>
                 <option value="" key="0" />
                 {dealerTypes
@@ -119,23 +124,14 @@ export const DealerUpdate = () => {
                   : null}
               </ValidatedField>
               <FormText>This field is required.</FormText>
+              <M2MSalesReceiptEmailPersonaAutocomplete onSelectInstances={handleSalesReceiptEmailPersonaSelectedEvent} />
               <ValidatedField
-                label="Sales Receipt Email Persona"
-                id="dealer-salesReceiptEmailPersona"
-                data-cy="salesReceiptEmailPersona"
-                type="select"
-                multiple
-                name="salesReceiptEmailPersonas"
-              >
-                <option value="" key="0" />
-                {salesReceiptEmailPersonas
-                  ? salesReceiptEmailPersonas.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.preferredGreetingDesignation}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>
+                label="Dealer Reference"
+                id="dealer-dealerReference"
+                name="dealerReference"
+                data-cy="dealerReference"
+                type="text"
+              />
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/dealer" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;
