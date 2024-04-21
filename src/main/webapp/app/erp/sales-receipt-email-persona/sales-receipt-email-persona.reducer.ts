@@ -135,6 +135,7 @@ export const SalesReceiptEmailPersonaSlice = createEntitySlice({
         state.errorMessage = null;
         state.updateSuccess = false;
         state.loading = true;
+        state.selectedEntities = [];
       })
       .addMatcher(isPending(createEntity, updateEntity, partialUpdateEntity, deleteEntity), state => {
         state.errorMessage = null;
