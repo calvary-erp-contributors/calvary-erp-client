@@ -84,7 +84,7 @@ const M2MSalesReceiptEmailPersonaAutocomplete: React.FC<M2MSalesReceiptEmailPers
         isMulti
         value={selectedPersonas.map(persona => ({
           value: persona,
-          label: persona.preferredGreetingDesignation,
+          label: `Persona # : ${persona.id} | Designation: ${persona.preferredGreetingDesignation} | email: ${persona.mainEmail}`,
         }))}
         onChange={handleOptionSelect}
         loadOptions={loadOptions}
