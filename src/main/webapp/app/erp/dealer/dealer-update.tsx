@@ -124,7 +124,10 @@ export const DealerUpdate = () => {
                   : null}
               </ValidatedField>
               <FormText>This field is required.</FormText>
-              <M2MSalesReceiptEmailPersonaAutocomplete onSelectInstances={handleSalesReceiptEmailPersonaSelectedEvent} />
+              <M2MSalesReceiptEmailPersonaAutocomplete
+                onSelectInstances={handleSalesReceiptEmailPersonaSelectedEvent}
+                initialSelectedPersonas={dealerEntity?.salesReceiptEmailPersonas}
+              />
               <ValidatedField
                 label="Dealer Reference"
                 id="dealer-dealerReference"

@@ -8,10 +8,14 @@ import { AxiosResponse } from 'axios';
 
 interface M2MSalesReceiptEmailPersonaAutocompleteProps {
   onSelectInstances: (accounts: ISalesReceiptEmailPersona[]) => void;
+  initialSelectedPersonas: ISalesReceiptEmailPersona[]; // Optional prop for initial selected personas
 }
 
-const M2MSalesReceiptEmailPersonaAutocomplete: React.FC<M2MSalesReceiptEmailPersonaAutocompleteProps> = ({ onSelectInstances }) => {
-  const [selectedPersonas, setSelectedPersonas] = useState<ISalesReceiptEmailPersona[]>([]);
+const M2MSalesReceiptEmailPersonaAutocomplete: React.FC<M2MSalesReceiptEmailPersonaAutocompleteProps> = ({
+  onSelectInstances,
+  initialSelectedPersonas = [],
+}) => {
+  const [selectedPersonas, setSelectedPersonas] = useState<ISalesReceiptEmailPersona[]>(initialSelectedPersonas);
 
   const dispatch = useAppDispatch();
 
