@@ -16,6 +16,7 @@ const M2MSalesReceiptEmailPersonaAutocomplete: React.FC<M2MSalesReceiptEmailPers
   initialSelectedPersonas = [],
 }) => {
   const [selectedPersonas, setSelectedPersonas] = useState<ISalesReceiptEmailPersona[]>(initialSelectedPersonas);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
@@ -34,6 +35,21 @@ const M2MSalesReceiptEmailPersonaAutocomplete: React.FC<M2MSalesReceiptEmailPers
       return [];
     }
   };
+
+  useEffect(() => {
+    // Fetch complete data for initial selected personas
+    const fetchDataForSelectedPersonas = async () => {
+      const promises = initialSelectedPersonas.map(async persona => {
+        const result = await dispatch(getSelectedEntity(persona.id));
+        const response = result.payload as AxiosResponse;
+        return response.data;
+      });
+      const updatedPersonas = await Promise.all(promises);
+      setSelectedPersonas(updatedPersonas);
+    };
+
+    fetchDataForSelectedPersonas();
+  }, []);
 
   const customStyles = {
     control: (provided, state) => ({
