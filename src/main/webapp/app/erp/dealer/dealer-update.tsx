@@ -30,7 +30,7 @@ export const DealerUpdate = () => {
   const updating = useAppSelector(state => state.dealer.updating);
   const updateSuccess = useAppSelector(state => state.dealer.updateSuccess);
   // TODO update to select selected personas
-  const salesReceiptEmailPersonas = useAppSelector(state => state.salesReceiptEmailPersona.entities);
+  const salesReceiptEmailPersonasSelected = useAppSelector(state => state.salesReceiptEmailPersona.selectedEntities);
 
   // TODO And apparently this one doesn't work
   const [selectedSalesReceiptEmailPersonas, setSelectedSalesReceiptEmailPersonas] = useState<ISalesReceiptEmailPersona[]>([]);
@@ -60,7 +60,7 @@ export const DealerUpdate = () => {
     const entity = {
       ...dealerEntity,
       ...values,
-      salesReceiptEmailPersonas: salesReceiptEmailPersonas,
+      salesReceiptEmailPersonas: salesReceiptEmailPersonasSelected,
       dealerType: dealerTypes.find(it => it.id.toString() === values.dealerType.toString()),
     };
 

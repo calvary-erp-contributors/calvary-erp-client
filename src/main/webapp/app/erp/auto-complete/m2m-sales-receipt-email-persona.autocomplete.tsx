@@ -3,7 +3,7 @@ import AsyncSelect from 'react-select/async';
 import axios from 'axios';
 import { translate } from 'react-jhipster';
 import { useAppDispatch } from 'app/config/store';
-import { getEntity } from '../sales-receipt-email-persona/sales-receipt-email-persona.reducer';
+import { getEntity, getSelectedEntity } from '../sales-receipt-email-persona/sales-receipt-email-persona.reducer';
 import { ISalesReceiptEmailPersona } from 'app/shared/model/sales-receipt-email-persona.model';
 
 const apiSearchUrl = 'api/app/_search/sales-receipt-email-personas';
@@ -54,7 +54,7 @@ const M2MSalesReceiptEmailPersonaAutocomplete: React.FC<M2MSalesReceiptEmailPers
     // Let's dispatch an action for each selected persona
     selectedPersonas.forEach(persona => {
       if (persona) {
-        dispatch(getEntity(persona.id));
+        dispatch(getSelectedEntity(persona.id));
       }
     });
   }, [selectedPersonas]);

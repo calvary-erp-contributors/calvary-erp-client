@@ -2,13 +2,14 @@ import axios from 'axios';
 import { createAsyncThunk, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
-import { IQueryParams, createEntitySlice, EntityState, serializeAxiosError } from 'app/shared/reducers/reducer.utils';
+import { IQueryParams, createEntitySlice, ERPEntityState, serializeAxiosError } from 'app/shared/reducers/erp-reducer.util';
 import { ISalesReceiptEmailPersona, defaultValue } from 'app/shared/model/sales-receipt-email-persona.model';
 
-const initialState: EntityState<ISalesReceiptEmailPersona> = {
+const initialState: ERPEntityState<ISalesReceiptEmailPersona> = {
   loading: false,
   errorMessage: null,
   entities: [],
+  selectedEntities: [],
   entity: defaultValue,
   updating: false,
   totalItems: 0,
@@ -35,6 +36,15 @@ export const getEntities = createAsyncThunk('salesReceiptEmailPersona/fetch_enti
 
 export const getEntity = createAsyncThunk(
   'salesReceiptEmailPersona/fetch_entity',
+  async (id: string | number) => {
+    const requestUrl = `${apiUrl}/${id}`;
+    return axios.get<ISalesReceiptEmailPersona>(requestUrl);
+  },
+  { serializeError: serializeAxiosError }
+);
+
+export const getSelectedEntity = createAsyncThunk(
+  'salesReceiptEmailPersona/fetch_selected_entity',
   async (id: string | number) => {
     const requestUrl = `${apiUrl}/${id}`;
     return axios.get<ISalesReceiptEmailPersona>(requestUrl);
@@ -94,6 +104,10 @@ export const SalesReceiptEmailPersonaSlice = createEntitySlice({
         state.loading = false;
         state.entity = action.payload.data;
       })
+      .addCase(getSelectedEntity.fulfilled, (state, action) => {
+        state.loading = false;
+        state.selectedEntities = [...state.selectedEntities, action.payload.data];
+      })
       .addCase(deleteEntity.fulfilled, state => {
         state.updating = false;
         state.updateSuccess = true;
@@ -114,8 +128,10 @@ export const SalesReceiptEmailPersonaSlice = createEntitySlice({
         state.loading = false;
         state.updateSuccess = true;
         state.entity = action.payload.data;
+        state.selectedEntities = [];
+        state.entities = [];
       })
-      .addMatcher(isPending(getEntities, getEntity, searchEntities), state => {
+      .addMatcher(isPending(getEntities, getEntity, getSelectedEntity, searchEntities), state => {
         state.errorMessage = null;
         state.updateSuccess = false;
         state.loading = true;
