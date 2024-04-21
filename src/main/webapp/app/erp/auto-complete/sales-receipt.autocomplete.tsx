@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import AsyncSelect from 'react-select/async';
 import { getEntity, searchEntities } from '../sales-receipt/sales-receipt.reducer';
-import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { useAppDispatch } from 'app/config/store';
 import { ISalesReceipt } from 'app/shared/model/sales-receipt.model';
+import { AxiosResponse } from 'axios';
 
 interface AutocompleteSearchSalesReceiptProps {
   onSelectEntity: (salesReceipt: ISalesReceipt) => void;
 }
 
 const AutocompleteSearchSalesReceipt: React.FC<AutocompleteSearchSalesReceiptProps> = ({ onSelectEntity }) => {
-  const salesReceipts = useAppSelector(state => state.salesReceipt.entities);
-
   const [selectedSalesReceipt, setSalesReceipt] = useState<ISalesReceipt | null>(null);
 
   const dispatch = useAppDispatch();
@@ -18,10 +17,10 @@ const AutocompleteSearchSalesReceipt: React.FC<AutocompleteSearchSalesReceiptPro
   const loadOptions = async (inputValue: string) => {
     try {
       // dispatch query to store
-      dispatch(searchEntities({ query: inputValue }));
+      const result = await dispatch(searchEntities({ query: inputValue }));
+      const response = result.payload as AxiosResponse;
 
-      // fetch updated data list from store. I know, it's quite counter-intuitive
-      return salesReceipts.map((result: ISalesReceipt) => ({
+      return response.data.map((result: ISalesReceipt) => ({
         value: result,
         label: `Receipt # : ${result.id} | date: ${result.transactionDate} | dealer: ${result.dealer.name} | desc: ${result.description}`,
       }));
