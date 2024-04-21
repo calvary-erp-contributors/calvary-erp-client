@@ -25,7 +25,7 @@ import transferItem from './transfer-item/transfer-item.reducer';
 import salesReceiptUpdate from './sales-receipt-update/sales-receipt.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
-const entitiesReducers = {
+const erpReducers = {
   accountingEvent,
   transactionAccount,
   transactionEntry,
@@ -54,4 +54,4 @@ const entitiesReducers = {
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
 };
 
-export default entitiesReducers;
+export default erpReducers;

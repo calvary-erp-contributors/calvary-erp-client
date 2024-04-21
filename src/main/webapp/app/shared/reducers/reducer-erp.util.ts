@@ -71,7 +71,7 @@ export interface ERPEntityState<T> {
   loading: boolean;
   errorMessage: string | null;
   entities: ReadonlyArray<T>;
-  selectedEntities: Array<T>;
+  selectedEntities: ReadonlyArray<T>;
   entity: T;
   links?: any;
   updating: boolean;

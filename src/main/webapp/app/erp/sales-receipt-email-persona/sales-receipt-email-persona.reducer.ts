@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk, isFulfilled, isPending, isRejected } from '@reduxjs/toolkit';
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
-import { IQueryParams, createEntitySlice, ERPEntityState, serializeAxiosError } from 'app/shared/reducers/erp-reducer.util';
+import { IQueryParams, createEntitySlice, ERPEntityState, serializeAxiosError } from 'app/shared/reducers/reducer-erp.util';
 import { ISalesReceiptEmailPersona, defaultValue } from 'app/shared/model/sales-receipt-email-persona.model';
 
 const initialState: ERPEntityState<ISalesReceiptEmailPersona> = {
