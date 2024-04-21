@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import AsyncSelect from 'react-select/async';
 import axios from 'axios';
 import { translate } from 'react-jhipster';
-import { useAppDispatch } from 'app/config/store';
-import { getEntity, getSelectedEntity } from '../sales-receipt-email-persona/sales-receipt-email-persona.reducer';
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getEntity, getSelectedEntity, searchEntities } from '../sales-receipt-email-persona/sales-receipt-email-persona.reducer';
 import { ISalesReceiptEmailPersona } from 'app/shared/model/sales-receipt-email-persona.model';
 
 const apiSearchUrl = 'api/app/_search/sales-receipt-email-personas';
@@ -15,15 +15,33 @@ interface M2MSalesReceiptEmailPersonaAutocompleteProps {
 const M2MSalesReceiptEmailPersonaAutocomplete: React.FC<M2MSalesReceiptEmailPersonaAutocompleteProps> = ({ onSelectInstances }) => {
   const [selectedPersonas, setSelectedPersonas] = useState<ISalesReceiptEmailPersona[]>([]);
 
+  const storedSelectedPersonas = useAppSelector(state => state.salesReceiptEmailPersona.entities);
+
   const dispatch = useAppDispatch();
 
+  // const loadOptions = async (inputValue: string) => {
+  //   const requestUrl = `${apiSearchUrl}?query=${inputValue}`;
+  //   try {
+  //     const response = await axios.get(requestUrl);
+  //     return response.data.map((result: ISalesReceiptEmailPersona) => ({
+  //       value: result,
+  //       label: result.preferredGreetingDesignation,
+  //     }));
+  //   } catch (error) {
+  //     console.error('Error fetching search results:', error);
+  //     return [];
+  //   }
+  // };
+
   const loadOptions = async (inputValue: string) => {
-    const requestUrl = `${apiSearchUrl}?query=${inputValue}`;
     try {
-      const response = await axios.get(requestUrl);
-      return response.data.map((result: ISalesReceiptEmailPersona) => ({
+      // dispatch query to store
+      dispatch(searchEntities({ query: inputValue }));
+
+      // fetch updated data list from store. I know, it's quite counter-intuitive
+      return storedSelectedPersonas.map((result: ISalesReceiptEmailPersona) => ({
         value: result,
-        label: result.preferredGreetingDesignation,
+        label: `Persona # : ${result.id} | Designation: ${result.preferredGreetingDesignation} | email: ${result.mainEmail}`,
       }));
     } catch (error) {
       console.error('Error fetching search results:', error);
