@@ -29,6 +29,10 @@ export const SalesReceiptEmailPersonaDetail = () => {
           </dt>
           <dd>{salesReceiptEmailPersonaEntity.id}</dd>
           <dt>
+            <span id="personaName">Persona Name</span>
+          </dt>
+          <dd>{salesReceiptEmailPersonaEntity.personaName}</dd>
+          <dt>
             <span id="emailIdentifier">Email Identifier</span>
           </dt>
           <dd>{salesReceiptEmailPersonaEntity.emailIdentifier}</dd>

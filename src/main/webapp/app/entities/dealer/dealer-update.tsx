@@ -9,9 +9,9 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { IDealerType } from 'app/shared/model/dealer-type.model';
-import { getEntities as getDealerTypes } from '../dealer-type/dealer-type.reducer';
+import { getEntities as getDealerTypes } from 'app/entities/dealer-type/dealer-type.reducer';
 import { ISalesReceiptEmailPersona } from 'app/shared/model/sales-receipt-email-persona.model';
-import { getEntities as getSalesReceiptEmailPersonas } from '../sales-receipt-email-persona/sales-receipt-email-persona.reducer';
+import { getEntities as getSalesReceiptEmailPersonas } from 'app/entities/sales-receipt-email-persona/sales-receipt-email-persona.reducer';
 import { IDealer } from 'app/shared/model/dealer.model';
 import { getEntity, updateEntity, createEntity, reset } from './dealer.reducer';
 

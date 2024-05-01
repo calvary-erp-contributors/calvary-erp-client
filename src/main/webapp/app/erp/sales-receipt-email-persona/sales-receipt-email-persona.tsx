@@ -169,6 +169,9 @@ export const SalesReceiptEmailPersona = () => {
                 <th className="hand" onClick={sort('id')}>
                   ID <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={sort('personaName')}>
+                  Persona Name <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={sort('emailIdentifier')}>
                   Email Identifier <FontAwesomeIcon icon="sort" />
                 </th>
@@ -235,9 +238,9 @@ export const SalesReceiptEmailPersona = () => {
                 <th>
                   Last Modified By <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
+                {/*<th>
                   Contributor <FontAwesomeIcon icon="sort" />
-                </th>
+                </th>*/}
                 <th />
               </tr>
             </thead>
@@ -249,6 +252,7 @@ export const SalesReceiptEmailPersona = () => {
                       {salesReceiptEmailPersona.id}
                     </Button>
                   </td>
+                  <td>{salesReceiptEmailPersona.personaName}</td>
                   <td>
                     <UUIDFormatComponent formattedUUID={salesReceiptEmailPersona.emailIdentifier} />
                   </td>
@@ -297,13 +301,13 @@ export const SalesReceiptEmailPersona = () => {
                       ''
                     )}
                   </td>
-                  <td>
+                  {/*<td>
                     {salesReceiptEmailPersona.contributor ? (
                       <Link to={`/dealer/${salesReceiptEmailPersona.contributor.id}`}>{salesReceiptEmailPersona.contributor.name}</Link>
                     ) : (
                       ''
                     )}
-                  </td>
+                  </td>*/}
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button

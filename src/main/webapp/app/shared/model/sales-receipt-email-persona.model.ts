@@ -4,6 +4,7 @@ import { IDealer } from 'app/shared/model/dealer.model';
 
 export interface ISalesReceiptEmailPersona {
   id?: number;
+  personaName?: string;
   emailIdentifier?: string;
   mainEmail?: string;
   clearCopyEmail?: boolean | null;

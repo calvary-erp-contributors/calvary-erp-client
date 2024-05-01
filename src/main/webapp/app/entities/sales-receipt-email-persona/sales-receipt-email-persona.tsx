@@ -166,6 +166,9 @@ export const SalesReceiptEmailPersona = () => {
                 <th className="hand" onClick={sort('id')}>
                   ID <FontAwesomeIcon icon="sort" />
                 </th>
+                <th className="hand" onClick={sort('personaName')}>
+                  Persona Name <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={sort('emailIdentifier')}>
                   Email Identifier <FontAwesomeIcon icon="sort" />
                 </th>
@@ -246,6 +249,7 @@ export const SalesReceiptEmailPersona = () => {
                       {salesReceiptEmailPersona.id}
                     </Button>
                   </td>
+                  <td>{salesReceiptEmailPersona.personaName}</td>
                   <td>{salesReceiptEmailPersona.emailIdentifier}</td>
                   <td>{salesReceiptEmailPersona.mainEmail}</td>
                   <td>{salesReceiptEmailPersona.clearCopyEmail ? 'true' : 'false'}</td>

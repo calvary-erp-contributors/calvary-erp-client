@@ -3,6 +3,11 @@
   "dto": "mapstruct",
   "fields": [
     {
+      "fieldName": "personaName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
       "fieldName": "emailIdentifier",
       "fieldType": "UUID",
       "fieldValidateRules": ["required", "unique"]

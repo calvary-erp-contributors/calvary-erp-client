@@ -92,7 +92,7 @@ export const SalesReceiptEmailPersonaUpdate = () => {
           blindCopyEmail: false,
           clearCopyEmail: false,
           preferredGreeting: 'Dear',
-          preferredSignature: 'Fellow servants,',
+          preferredSignature: 'Fellow servants',
           preferredSignatureDesignation: 'Treasury Team',
         }
       : {
@@ -122,23 +122,17 @@ export const SalesReceiptEmailPersonaUpdate = () => {
               {!isNew ? (
                 <ValidatedField name="id" required readOnly id="sales-receipt-email-persona-id" label="ID" validate={{ required: true }} />
               ) : null}
-              {/*<ValidatedField
-                id="sales-receipt-email-persona-contributor"
-                name="contributor"
-                data-cy="contributor"
-                label="Contributor"
-                type="select"
-              >
-                <option value="" key="0" />
-                {dealers
-                  ? dealers.map(otherEntity => (
-                      <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.name}
-                      </option>
-                    ))
-                  : null}
-              </ValidatedField>*/}
-              <DealerAutocomplete onSelectInstance={handleDealerSelectedEvent} />
+              <ValidatedField
+                label="Persona Name"
+                id="sales-receipt-email-persona-personaName"
+                name="personaName"
+                data-cy="personaName"
+                type="text"
+                validate={{
+                  required: { value: true, message: 'This field is required.' },
+                }}
+              />
+              {/*<DealerAutocomplete onSelectInstance={handleDealerSelectedEvent} />*/}
               <ValidatedField
                 label="Preferred Greeting Designation"
                 id="sales-receipt-email-persona-preferredGreetingDesignation"

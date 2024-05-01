@@ -104,6 +104,16 @@ export const SalesReceiptEmailPersonaUpdate = () => {
                 <ValidatedField name="id" required readOnly id="sales-receipt-email-persona-id" label="ID" validate={{ required: true }} />
               ) : null}
               <ValidatedField
+                label="Persona Name"
+                id="sales-receipt-email-persona-personaName"
+                name="personaName"
+                data-cy="personaName"
+                type="text"
+                validate={{
+                  required: { value: true, message: 'This field is required.' },
+                }}
+              />
+              <ValidatedField
                 label="Email Identifier"
                 id="sales-receipt-email-persona-emailIdentifier"
                 name="emailIdentifier"
