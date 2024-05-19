@@ -173,7 +173,10 @@ export const TransactionEntryUpdate = () => {
                 onSelectAccount={handleAccountSelectedEvent}
                 initialSelection={transactionEntryEntity.transactionAccount}
               />
-              <AccountTransactionAutocomplete onSelectTransaction={handleTransactionSelectedEvent} />
+              <AccountTransactionAutocomplete
+                onSelectTransaction={handleTransactionSelectedEvent}
+                initialSelection={transactionEntryEntity.accountTransaction}
+              />
               <Button tag={Link} id="cancel-save" data-cy="entityCreateCancelButton" to="/transaction-entry" replace color="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

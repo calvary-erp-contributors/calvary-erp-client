@@ -10,10 +10,11 @@ const apiSearchUrl = 'api/app/_search/account-transactions';
 
 interface AccountTransactionAutocompleteProps {
   onSelectTransaction: (account: IAccountTransaction) => void;
+  initialSelection: IAccountTransaction;
 }
 
-const AccountTransactionAutocomplete: React.FC<AccountTransactionAutocompleteProps> = ({ onSelectTransaction }) => {
-  const [selectedTransaction, setSelectedTransaction] = useState<IAccountTransaction | null>(null);
+const AccountTransactionAutocomplete: React.FC<AccountTransactionAutocompleteProps> = ({ onSelectTransaction, initialSelection = {} }) => {
+  const [selectedTransaction, setSelectedTransaction] = useState<IAccountTransaction | null>(initialSelection);
   const dispatch = useAppDispatch();
 
   const loadOptions = async (inputValue: string) => {
