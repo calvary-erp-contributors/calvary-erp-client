@@ -145,7 +145,10 @@ export const BalanceSheetItemTypeUpdate = () => {
                     ))
                   : null}
               </ValidatedField>*/}
-              <AutocompleteSearchTransactionAccount onSelectAccount={handleAccountSelectedEvent} />
+              <AutocompleteSearchTransactionAccount
+                onSelectAccount={handleAccountSelectedEvent}
+                initialSelection={balanceSheetItemTypeEntity.transactionAccount}
+              />
               <FormText>This field is required.</FormText>
               <ValidatedField
                 id="balance-sheet-item-type-parentItem"
