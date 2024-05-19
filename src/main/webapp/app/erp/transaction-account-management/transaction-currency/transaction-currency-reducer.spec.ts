@@ -13,9 +13,9 @@ import reducer, {
   updateEntity,
   partialUpdateEntity,
   reset,
-} from './transaction-entry.reducer';
-import { EntityState } from 'app/shared/reducers/reducer.utils';
-import { ITransactionEntry, defaultValue } from 'app/shared/model/transaction-entry.model';
+} from './transaction-currency.reducer';
+import { EntityState } from '../../../shared/reducers/reducer.utils';
+import { ITransactionCurrency, defaultValue } from '../../../shared/model/transaction-currency.model';
 
 describe('Entities reducer tests', () => {
   function isEmpty(element): boolean {
@@ -26,7 +26,7 @@ describe('Entities reducer tests', () => {
     }
   }
 
-  const initialState: EntityState<ITransactionEntry> = {
+  const initialState: EntityState<ITransactionCurrency> = {
     loading: false,
     errorMessage: null,
     entities: [],
@@ -204,7 +204,7 @@ describe('Entities reducer tests', () => {
       axios.delete = sinon.stub().returns(Promise.resolve(resolvedObject));
     });
 
-    it('dispatches FETCH_TRANSACTIONENTRY_LIST actions', async () => {
+    it('dispatches FETCH_TRANSACTIONCURRENCY_LIST actions', async () => {
       const expectedActions = [
         {
           type: getEntities.pending.type,
@@ -218,7 +218,7 @@ describe('Entities reducer tests', () => {
       expect(store.getActions()[0]).toMatchObject(expectedActions[0]);
       expect(store.getActions()[1]).toMatchObject(expectedActions[1]);
     });
-    it('dispatches SEARCH_TRANSACTIONENTRIES actions', async () => {
+    it('dispatches SEARCH_TRANSACTIONCURRENCIES actions', async () => {
       const expectedActions = [
         {
           type: searchEntities.pending.type,
@@ -233,7 +233,7 @@ describe('Entities reducer tests', () => {
       expect(store.getActions()[1]).toMatchObject(expectedActions[1]);
     });
 
-    it('dispatches FETCH_TRANSACTIONENTRY actions', async () => {
+    it('dispatches FETCH_TRANSACTIONCURRENCY actions', async () => {
       const expectedActions = [
         {
           type: getEntity.pending.type,
@@ -248,7 +248,7 @@ describe('Entities reducer tests', () => {
       expect(store.getActions()[1]).toMatchObject(expectedActions[1]);
     });
 
-    it('dispatches CREATE_TRANSACTIONENTRY actions', async () => {
+    it('dispatches CREATE_TRANSACTIONCURRENCY actions', async () => {
       const expectedActions = [
         {
           type: createEntity.pending.type,
@@ -267,7 +267,7 @@ describe('Entities reducer tests', () => {
       expect(store.getActions()[2]).toMatchObject(expectedActions[2]);
     });
 
-    it('dispatches UPDATE_TRANSACTIONENTRY actions', async () => {
+    it('dispatches UPDATE_TRANSACTIONCURRENCY actions', async () => {
       const expectedActions = [
         {
           type: updateEntity.pending.type,
@@ -286,7 +286,7 @@ describe('Entities reducer tests', () => {
       expect(store.getActions()[2]).toMatchObject(expectedActions[2]);
     });
 
-    it('dispatches PARTIAL_UPDATE_TRANSACTIONENTRY actions', async () => {
+    it('dispatches PARTIAL_UPDATE_TRANSACTIONCURRENCY actions', async () => {
       const expectedActions = [
         {
           type: partialUpdateEntity.pending.type,
@@ -305,7 +305,7 @@ describe('Entities reducer tests', () => {
       expect(store.getActions()[2]).toMatchObject(expectedActions[2]);
     });
 
-    it('dispatches DELETE_TRANSACTIONENTRY actions', async () => {
+    it('dispatches DELETE_TRANSACTIONCURRENCY actions', async () => {
       const expectedActions = [
         {
           type: deleteEntity.pending.type,

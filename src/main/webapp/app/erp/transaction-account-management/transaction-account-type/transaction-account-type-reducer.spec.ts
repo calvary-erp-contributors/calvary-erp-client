@@ -14,8 +14,8 @@ import reducer, {
   partialUpdateEntity,
   reset,
 } from './transaction-account-type.reducer';
-import { EntityState } from 'app/shared/reducers/reducer.utils';
-import { ITransactionAccountType, defaultValue } from 'app/shared/model/transaction-account-type.model';
+import { EntityState } from '../../../shared/reducers/reducer.utils';
+import { ITransactionAccountType, defaultValue } from '../../../shared/model/transaction-account-type.model';
 
 describe('Entities reducer tests', () => {
   function isEmpty(element): boolean {

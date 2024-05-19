@@ -15,8 +15,8 @@ import { getEntities as getAccountTransactions } from 'app/entities/account-tran
 import { ITransactionEntry } from 'app/shared/model/transaction-entry.model';
 import { TransactionEntryTypes } from 'app/shared/model/enumerations/transaction-entry-types.model';
 import { getEntity, updateEntity, createEntity, reset } from './transaction-entry.reducer';
-import AutocompleteSearchTransactionAccount from '../auto-complete/transaction-account.autocomplete';
-import AccountTransactionAutocomplete from '../auto-complete/account-transaction.autocomplete';
+import AutocompleteSearchTransactionAccount from '../../auto-complete/transaction-account.autocomplete';
+import AccountTransactionAutocomplete from '../../auto-complete/account-transaction.autocomplete';
 
 export const TransactionEntryUpdate = () => {
   const dispatch = useAppDispatch();

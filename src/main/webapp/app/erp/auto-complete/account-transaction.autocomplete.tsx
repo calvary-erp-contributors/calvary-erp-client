@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AsyncSelect from 'react-select/async';
 import axios from 'axios';
 import { translate } from 'react-jhipster';
-import { getEntity } from 'app/erp/account-transaction/account-transaction.reducer';
+import { getEntity } from 'app/erp/transaction-account-management/account-transaction/account-transaction.reducer';
 import { useAppDispatch } from 'app/config/store';
 import { IAccountTransaction } from 'app/shared/model/account-transaction.model';
 

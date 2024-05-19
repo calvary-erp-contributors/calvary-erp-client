@@ -9,7 +9,7 @@ import { mapIdList } from 'app/shared/util/entity-utils';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { ITransactionAccount } from 'app/shared/model/transaction-account.model';
-import { getEntities as getTransactionAccounts } from 'app/erp/transaction-account/transaction-account.reducer';
+import { getEntities as getTransactionAccounts } from 'app/erp/transaction-account-management/transaction-account/transaction-account.reducer';
 import { getEntities as getBalanceSheetItemTypes } from 'app/erp/balance-sheet-item-type/balance-sheet-item-type.reducer';
 import { IBalanceSheetItemType } from 'app/shared/model/balance-sheet-item-type.model';
 import { getEntity, updateEntity, createEntity, reset } from './balance-sheet-item-type.reducer';

@@ -4,14 +4,14 @@ import { Route } from 'react-router-dom';
 import ErrorBoundaryRoutes from 'app/shared/error/error-boundary-routes';
 
 import AccountingEvent from './accounting-event';
-import TransactionAccount from './transaction-account';
-import TransactionEntry from './transaction-entry';
-import AccountTransaction from './account-transaction';
+import TransactionAccount from './transaction-account-management/transaction-account';
+import TransactionEntry from './transaction-account-management/transaction-entry';
+import AccountTransaction from './transaction-account-management/account-transaction';
 import EventType from './event-type';
 import DealerType from './dealer-type';
 import Dealer from './dealer';
-import TransactionAccountType from './transaction-account-type';
-import TransactionCurrency from './transaction-currency';
+import TransactionAccountType from './transaction-account-management/transaction-account-type';
+import TransactionCurrency from './transaction-account-management/transaction-currency';
 import BalanceSheetItemType from './balance-sheet-item-type';
 import BalanceSheetItemValue from './balance-sheet-item-value';
 import SalesReceipt from './sales-receipt';
@@ -28,7 +28,7 @@ import TransferItem from './transfer-item';
 import ReceiptEmailRequest from './receipt-email-request';
 import SalesReceiptEmailPersona from './sales-receipt-email-persona';
 import ApplicationUser from './application-user';
-import AccountBalanceReportItem from './account-balance-report-item';
+import AccountBalanceReportItem from './transaction-account-management/account-balance-report-item';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 export default () => {
