@@ -9,6 +9,7 @@ import { Home, Brand } from './header-components';
 import { AdminMenu, EntitiesMenu, ERPMenu, AccountMenu, AboutMenu } from '../menus';
 import { SalesReceiptMenu } from 'app/shared/layout/menus/salesReceipt';
 import { PeopleManMenu } from 'app/shared/layout/menus/people-man.menu';
+import { ReportMenu } from 'app/shared/layout/menus/reports.menu';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -43,6 +44,7 @@ const Header = (props: IHeaderProps) => {
         <Collapse isOpen={menuOpen} navbar>
           <Nav id="header-tabs" className="ms-auto" navbar>
             <Home />
+            {props.isAuthenticated && <ReportMenu />}
             {props.isAuthenticated && <SalesReceiptMenu />}
             {props.isAuthenticated && <PeopleManMenu />}
             {props.isAuthenticated && <ERPMenu />}

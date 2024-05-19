@@ -22,6 +22,7 @@ import salesReceiptCompilation from 'app/entities/sales-receipt-compilation/sale
 import receiptEmailRequest from 'app/entities/receipt-email-request/receipt-email-request.reducer';
 import transferItem from 'app/entities/transfer-item/transfer-item.reducer';
 import salesReceiptEmailPersona from 'app/entities/sales-receipt-email-persona/sales-receipt-email-persona.reducer';
+import accountBalanceReportItem from 'app/entities/account-balance-report-item/account-balance-report-item.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 const entitiesReducers = {
@@ -49,6 +50,7 @@ const entitiesReducers = {
   receiptEmailRequest,
   transferItem,
   salesReceiptEmailPersona,
+  accountBalanceReportItem,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
 };
 

@@ -43,7 +43,8 @@
       "SalesReceiptCompilation",
       "TransferItem",
       "ReceiptEmailRequest",
-      "SalesReceiptEmailPersona"
+      "SalesReceiptEmailPersona",
+      "AccountBalanceReportItem"
     ],
     "entitySuffix": "",
     "gradleEnterpriseHost": null,
