@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AsyncSelect from 'react-select/async';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { translate } from 'react-jhipster';
 import { getEntity } from 'app/erp/transaction-account-management/account-transaction/account-transaction.reducer';
 import { useAppDispatch } from 'app/config/store';
@@ -49,6 +49,18 @@ const AccountTransactionAutocomplete: React.FC<AccountTransactionAutocompletePro
   };
 
   useEffect(() => {
+    // Fetch complete data for initial selected personas
+    const fetchDataForInitialSelection = async () => {
+      const result = await dispatch(getEntity(initialSelection.id));
+      const response = result.payload as AxiosResponse;
+
+      setSelectedTransaction(response.data);
+    };
+
+    fetchDataForInitialSelection();
+  }, []);
+
+  useEffect(() => {
     if (selectedTransaction) {
       dispatch(getEntity(selectedTransaction.id));
     }
@@ -58,7 +70,14 @@ const AccountTransactionAutocomplete: React.FC<AccountTransactionAutocompletePro
     <div>
       <div> Transaction </div>
       <AsyncSelect
-        value={selectedTransaction ? { value: selectedTransaction, label: selectedTransaction.referenceNumber } : null}
+        value={
+          selectedTransaction
+            ? {
+                value: selectedTransaction,
+                label: ` No. ${selectedTransaction.referenceNumber} Date: ${selectedTransaction.transactionDate} Desc: ${selectedTransaction.description}`,
+              }
+            : null
+        }
         onChange={handleOptionSelect}
         loadOptions={loadOptions}
         placeholder={translate('calvaryErp.transactionEntry.accountTransactionPlaceholder')}

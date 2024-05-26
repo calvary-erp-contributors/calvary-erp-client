@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import AsyncSelect from 'react-select/async';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { ITransactionAccount } from 'app/shared/model/transaction-account.model';
 import { translate } from 'react-jhipster';
-import { getEntity } from 'app/entities/transaction-account/transaction-account.reducer';
 import { useAppDispatch } from 'app/config/store';
+import { getEntity } from 'app/erp/transaction-account-management/transaction-account/transaction-account.reducer';
+import { getEntity as getTransactionCurrencyEntity } from 'app/erp/transaction-account-management/transaction-currency/transaction-currency.reducer';
+import { getEntity as getTransactionAccountType } from 'app/erp/transaction-account-management/transaction-account-type/transaction-account-type.reducer';
+import { ITransactionCurrency } from 'app/shared/model/transaction-currency.model';
+import { ITransactionAccountType } from 'app/shared/model/transaction-account-type.model';
 
 const apiSearchUrl = 'api/app/_search/transaction-accounts';
 
@@ -18,6 +22,9 @@ const AutocompleteSearchTransactionAccount: React.FC<AutocompleteSearchTransacti
   initialSelection = {},
 }) => {
   const [selectedAccount, setSelectedAccount] = useState<ITransactionAccount | null>(initialSelection);
+  const [selectedParentAccount, setSelectedParentAccount] = useState<ITransactionAccount | null>(null);
+  const [selectedAccountType, setSelectedAccountType] = useState<ITransactionAccountType | null>(null);
+  const [selectedTransactionCurrency, setSelectedTransactionCurrency] = useState<ITransactionCurrency | null>(null);
   const dispatch = useAppDispatch();
 
   const loadOptions = async (inputValue: string) => {
@@ -52,6 +59,36 @@ const AutocompleteSearchTransactionAccount: React.FC<AutocompleteSearchTransacti
   };
 
   useEffect(() => {
+    // Fetch complete data for initial selected personas
+    const fetchDataForInitialSelection = async () => {
+      const result = await dispatch(getEntity(initialSelection.id));
+      const response = result.payload as AxiosResponse;
+
+      setSelectedAccount(response.data);
+
+      // parent account
+      const resultParent = await dispatch(getEntity(response.data.parent.id));
+      const responseParent = resultParent.payload as AxiosResponse;
+
+      setSelectedParentAccount(responseParent.data);
+
+      // transaction currency
+      const transactionCurrency = await dispatch(getTransactionCurrencyEntity(response.data.transactionCurrency.id));
+      const transactionCurrencyResponse = transactionCurrency.payload as AxiosResponse;
+
+      setSelectedTransactionCurrency(transactionCurrencyResponse.data);
+
+      // transaction account type
+      const transactionAccountType = await dispatch(getTransactionAccountType(response.data.transactionAccountType.id));
+      const transactionAccountTypeResponse = transactionAccountType.payload as AxiosResponse;
+
+      setSelectedAccountType(transactionAccountTypeResponse.data);
+    };
+
+    fetchDataForInitialSelection();
+  }, []);
+
+  useEffect(() => {
     if (selectedAccount) {
       dispatch(getEntity(selectedAccount.id));
     }
@@ -61,7 +98,14 @@ const AutocompleteSearchTransactionAccount: React.FC<AutocompleteSearchTransacti
     <div>
       <div>Account</div>
       <AsyncSelect
-        value={selectedAccount ? { value: selectedAccount, label: selectedAccount.accountName } : null}
+        value={
+          selectedAccount
+            ? {
+                value: selectedAccount,
+                label: `No. ${selectedAccount.accountNumber} | Name: ${selectedAccount.accountName}`,
+              }
+            : null
+        }
         onChange={handleOptionSelect}
         loadOptions={loadOptions}
         placeholder={translate('calvaryErp.transactionEntry.transactionAccountPlaceholder')}
