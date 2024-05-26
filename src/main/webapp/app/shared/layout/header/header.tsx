@@ -10,6 +10,7 @@ import { AdminMenu, EntitiesMenu, ERPMenu, AccountMenu, AboutMenu } from '../men
 import { SalesReceiptMenu } from 'app/shared/layout/menus/salesReceipt';
 import { PeopleManMenu } from 'app/shared/layout/menus/people-man.menu';
 import { ReportMenu } from 'app/shared/layout/menus/reports.menu';
+import { AccountingDropDownMenu } from 'app/shared/layout/menus/accounting-dropdown-nav.menu';
 
 export interface IHeaderProps {
   isAuthenticated: boolean;
@@ -45,6 +46,7 @@ const Header = (props: IHeaderProps) => {
           <Nav id="header-tabs" className="ms-auto" navbar>
             <Home />
             {props.isAuthenticated && <ReportMenu />}
+            {props.isAuthenticated && <AccountingDropDownMenu />}
             {props.isAuthenticated && <SalesReceiptMenu />}
             {props.isAuthenticated && <PeopleManMenu />}
             {props.isAuthenticated && <ERPMenu />}
