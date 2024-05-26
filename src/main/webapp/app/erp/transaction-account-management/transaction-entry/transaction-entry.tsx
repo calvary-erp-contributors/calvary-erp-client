@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { ITransactionEntry } from 'app/shared/model/transaction-entry.model';
 import { searchEntities, getEntities } from './transaction-entry.reducer';
+import NumberFormatComponent from 'app/erp/utilities/number-format.component';
 
 export const TransactionEntry = () => {
   const dispatch = useAppDispatch();
@@ -20,7 +21,7 @@ export const TransactionEntry = () => {
 
   const [search, setSearch] = useState('');
   const [paginationState, setPaginationState] = useState(
-    overridePaginationStateWithQueryParams(getSortState(location, ITEMS_PER_PAGE, 'id'), location.search)
+    overridePaginationStateWithQueryParams(getSortState(location, 50, 'id'), location.search)
   );
 
   const transactionEntryList = useAppSelector(state => state.transactionEntry.entities);
@@ -161,6 +162,12 @@ export const TransactionEntry = () => {
                 <th className="hand" onClick={sort('id')}>
                   ID <FontAwesomeIcon icon="sort" />
                 </th>
+                <th>
+                  Account Transaction <FontAwesomeIcon icon="sort" />
+                </th>
+                <th>
+                  Transaction Account <FontAwesomeIcon icon="sort" />
+                </th>
                 <th className="hand" onClick={sort('entryAmount')}>
                   Entry Amount <FontAwesomeIcon icon="sort" />
                 </th>
@@ -182,12 +189,6 @@ export const TransactionEntry = () => {
                 <th className="hand" onClick={sort('wasApproved')}>
                   Was Approved <FontAwesomeIcon icon="sort" />
                 </th>
-                <th>
-                  Transaction Account <FontAwesomeIcon icon="sort" />
-                </th>
-                <th>
-                  Account Transaction <FontAwesomeIcon icon="sort" />
-                </th>
                 <th />
               </tr>
             </thead>
@@ -199,13 +200,15 @@ export const TransactionEntry = () => {
                       {transactionEntry.id}
                     </Button>
                   </td>
-                  <td>{transactionEntry.entryAmount}</td>
-                  <td>{transactionEntry.transactionEntryType}</td>
-                  <td>{transactionEntry.description}</td>
-                  <td>{transactionEntry.wasProposed ? 'true' : 'false'}</td>
-                  <td>{transactionEntry.wasPosted ? 'true' : 'false'}</td>
-                  <td>{transactionEntry.wasDeleted ? 'true' : 'false'}</td>
-                  <td>{transactionEntry.wasApproved ? 'true' : 'false'}</td>
+                  <td>
+                    {transactionEntry.accountTransaction ? (
+                      <Link to={`/account-transaction/${transactionEntry.accountTransaction.id}`}>
+                        {transactionEntry.accountTransaction.referenceNumber}
+                      </Link>
+                    ) : (
+                      ''
+                    )}
+                  </td>
                   <td>
                     {transactionEntry.transactionAccount ? (
                       <Link to={`/transaction-account/${transactionEntry.transactionAccount.id}`}>
@@ -216,14 +219,15 @@ export const TransactionEntry = () => {
                     )}
                   </td>
                   <td>
-                    {transactionEntry.accountTransaction ? (
-                      <Link to={`/account-transaction/${transactionEntry.accountTransaction.id}`}>
-                        {transactionEntry.accountTransaction.referenceNumber}
-                      </Link>
-                    ) : (
-                      ''
-                    )}
+                    <NumberFormatComponent formattedNumber={transactionEntry.entryAmount} />
                   </td>
+                  <td>{transactionEntry.transactionEntryType}</td>
+                  <td>{transactionEntry.description}</td>
+                  <td>{transactionEntry.wasProposed ? 'true' : 'false'}</td>
+                  <td>{transactionEntry.wasPosted ? 'true' : 'false'}</td>
+                  <td>{transactionEntry.wasDeleted ? 'true' : 'false'}</td>
+                  <td>{transactionEntry.wasApproved ? 'true' : 'false'}</td>
+
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button
