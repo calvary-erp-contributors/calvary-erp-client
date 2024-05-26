@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { ITransactionEntry } from 'app/shared/model/transaction-entry.model';
 import { searchEntities, getEntities } from './transaction-entry.reducer';
 import NumberFormatComponent from 'app/erp/utilities/number-format.component';
+import { getDescSortedSortState, overrideDescPaginationStateWithQueryParams } from 'app/erp/utilities/desc-sorted.pagination';
 
 export const TransactionEntry = () => {
   const dispatch = useAppDispatch();
@@ -21,7 +22,7 @@ export const TransactionEntry = () => {
 
   const [search, setSearch] = useState('');
   const [paginationState, setPaginationState] = useState(
-    overridePaginationStateWithQueryParams(getSortState(location, 50, 'id'), location.search)
+    overrideDescPaginationStateWithQueryParams(getDescSortedSortState(location, ITEMS_PER_PAGE, 'id'), location.search)
   );
 
   const transactionEntryList = useAppSelector(state => state.transactionEntry.entities);
